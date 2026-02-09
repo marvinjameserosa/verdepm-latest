@@ -11,7 +11,7 @@ export const projectStatusBadgeClass: Record<ProjectStatus, string> = {
   planning:
     "bg-gray-100 text-gray-800 dark:bg-gray-900/20 dark:text-gray-400 border-gray-200 dark:border-gray-800",
   "in-progress":
-    "bg-emerald-100 text-emerald-800 dark:bg-emerald-900/20 dark:text-emerald-400 border-emerald-200 dark:border-emerald-800",
+    "bg-secondary text-secondary-foreground border-border",
   "on-hold":
     "bg-amber-100 text-amber-800 dark:bg-amber-900/20 dark:text-amber-400 border-amber-200 dark:border-amber-800",
   completed:

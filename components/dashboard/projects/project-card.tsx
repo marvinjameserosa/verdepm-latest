@@ -75,7 +75,7 @@ const formatBudget = (value: number | string | null | undefined) => {
 
 const statusDotColor: Record<string, string> = {
   planning: "bg-gray-400",
-  "in-progress": "bg-emerald-500",
+  "in-progress": "bg-primary",
   "on-hold": "bg-amber-500",
   completed: "bg-blue-500",
 };
