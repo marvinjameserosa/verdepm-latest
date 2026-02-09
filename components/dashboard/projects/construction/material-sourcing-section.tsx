@@ -200,27 +200,25 @@ export function MaterialSourcingSection({
 
   return (
     <>
-      <Card className="backdrop-blur-sm bg-white/50 dark:bg-gray-800/50 border-white/30 dark:border-gray-700/30 rounded-xl">
+      <Card className="border border-border bg-card shadow-sm">
         <CardHeader>
-          <CardTitle className="flex items-center gap-2 text-emerald-700 dark:text-emerald-300">
-            <div className="p-1.5 rounded-lg bg-emerald-100 dark:bg-emerald-900/40">
-              <PackageCheck className="h-5 w-5 text-emerald-600 dark:text-emerald-400" />
+          <CardTitle className="flex items-center gap-2 text-sm font-semibold text-foreground">
+            <div className="p-1.5 rounded-md bg-muted">
+              <PackageCheck className="h-4 w-4 text-muted-foreground" />
             </div>
             Material Delivery & Logistics
           </CardTitle>
-          <CardDescription>
-            Review sourcing commitments and log delivery logistics for each
-            material.
+          <CardDescription className="text-xs">
+            Review sourcing commitments and log delivery logistics for each material.
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
-          <p className="text-sm text-muted-foreground">
+          <p className="text-xs text-muted-foreground">
             These entries mirror the{" "}
-            <span className="font-medium text-emerald-700 dark:text-emerald-300">
-              Material Sourcing &amp; Due Diligence
+            <span className="font-medium text-foreground">
+              Material Sourcing & Due Diligence
             </span>{" "}
-            table completed before groundbreaking. Use this list to confirm
-            deliveries match the approved sourcing strategy.
+            table completed before groundbreaking.
           </p>
           <div className="border rounded-lg">
             <Table>

@@ -79,27 +79,26 @@ export function WasteEmissionsCard({
   );
 
   return (
-    <Card className="glassmorphism card-hover border-l-4 border-l-chart-3">
-      <CardHeader className="flex flex-row items-start justify-between space-y-0 pb-2">
+    <Card className="border border-border bg-card shadow-sm">
+      <CardHeader className="flex flex-row items-start justify-between space-y-0 pb-3">
         <div>
           <div className="flex items-center gap-2">
-            <CardTitle className="text-lg font-bold text-chart-3">
-              Waste Management Summary
+            <CardTitle className="text-sm font-semibold text-foreground">
+              Waste Management
             </CardTitle>
             <Badge
               variant="outline"
-              className="border-amber-200 bg-amber-50 text-amber-700 dark:border-amber-500/50 dark:bg-amber-500/10 dark:text-amber-200"
+              className="text-[10px] px-1.5 py-0 font-medium border-amber-200 bg-amber-50 text-amber-700 dark:border-amber-500/50 dark:bg-amber-500/10 dark:text-amber-200"
             >
               Scope 3
             </Badge>
           </div>
-          <CardDescription className="mt-1">
-            Break down monthly waste streams and treatment methods to compute
-            emissions.
+          <CardDescription className="mt-1 text-xs">
+            Break down monthly waste streams and treatment methods to compute emissions.
           </CardDescription>
         </div>
-        <div className="p-2 rounded-lg bg-chart-3/10">
-          <Trash2 className="h-5 w-5 text-chart-3" />
+        <div className="p-1.5 rounded-md bg-muted">
+          <Trash2 className="h-4 w-4 text-muted-foreground" />
         </div>
       </CardHeader>
       <CardContent className="space-y-4">
@@ -184,25 +183,25 @@ export function WasteEmissionsCard({
           <PlusCircle className="mr-2 h-4 w-4" /> Add Waste Entry
         </Button>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-sm">
-          <div className="rounded-md bg-emerald-50 dark:bg-emerald-900/30 border border-emerald-200 dark:border-emerald-900 px-3 py-2 text-emerald-700 dark:text-emerald-200">
+          <div className="rounded-md bg-muted/60 border border-border px-3 py-2 text-muted-foreground">
             Total input mass:
-            <span className="ml-1 font-semibold">
+            <span className="ml-1 font-semibold text-foreground">
               {totalInputMassKg > 0
                 ? `${totalInputMassKg.toFixed(2)} kg`
                 : "--"}
             </span>
           </div>
-          <div className="rounded-md bg-emerald-50 dark:bg-emerald-900/30 border border-emerald-200 dark:border-emerald-900 px-3 py-2 text-emerald-700 dark:text-emerald-200">
+          <div className="rounded-md bg-muted/60 border border-border px-3 py-2 text-muted-foreground">
             Allocated mass (kg):
-            <span className="ml-1 font-semibold">
+            <span className="ml-1 font-semibold text-foreground">
               {totalAllocatedMassKg > 0
                 ? `${totalAllocatedMassKg.toFixed(2)} kg`
                 : "--"}
             </span>
           </div>
-          <div className="rounded-md bg-emerald-50 dark:bg-emerald-900/30 border border-emerald-200 dark:border-emerald-900 px-3 py-2 text-emerald-700 dark:text-emerald-200">
+          <div className="rounded-md bg-muted/60 border border-border px-3 py-2 text-muted-foreground">
             Total CO₂e emitted:
-            <span className="ml-1 font-semibold">
+            <span className="ml-1 font-semibold text-foreground">
               {totalEmissionsKg > 0
                 ? `${totalEmissionsKg.toFixed(2)} kg`
                 : "--"}
@@ -318,24 +317,24 @@ export function WasteEmissionsCard({
         )}
 
         {history && history.length > 0 && (
-          <div className="mt-6 pt-4 border-t border-gray-100 dark:border-gray-700">
-            <h4 className="text-xs font-semibold text-muted-foreground mb-3 uppercase tracking-wider">
+          <div className="mt-6 pt-4 border-t border-border">
+            <h4 className="text-xs font-medium text-muted-foreground mb-3 uppercase tracking-wider">
               Monthly Waste History
             </h4>
-            <div className="overflow-hidden rounded-md border border-gray-200 dark:border-gray-700">
+            <div className="overflow-hidden rounded-md border border-border">
               <Table>
-                <TableHeader className="bg-gray-50 dark:bg-gray-800/50">
+                <TableHeader className="bg-muted/50">
                   <TableRow>
-                    <TableHead className="text-gray-500 dark:text-gray-400">
+                    <TableHead className="text-muted-foreground">
                       Month
                     </TableHead>
-                    <TableHead className="text-gray-500 dark:text-gray-400">
+                    <TableHead className="text-muted-foreground">
                       Total Waste (kg)
                     </TableHead>
-                    <TableHead className="text-gray-500 dark:text-gray-400">
+                    <TableHead className="text-muted-foreground">
                       Emissions (kgCO₂e)
                     </TableHead>
-                    <TableHead className="text-gray-500 dark:text-gray-400">
+                    <TableHead className="text-muted-foreground">
                       Last Updated
                     </TableHead>
                     <TableHead className="w-8"></TableHead>
@@ -345,7 +344,7 @@ export function WasteEmissionsCard({
                   {history.map((log, index) => (
                     <TableRow
                       key={index}
-                      className="hover:bg-gray-50/50 dark:hover:bg-gray-800/50 transition-colors"
+                      className="hover:bg-muted/30 transition-colors"
                     >
                       <TableCell className="font-medium">
                         {log.log_month}

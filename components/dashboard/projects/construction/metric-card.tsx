@@ -52,18 +52,18 @@ export function MetricCard({
   const [selectedLog, setSelectedLog] = useState<any | null>(null);
 
   return (
-    <Card className="glassmorphism card-hover border-l-4 border-l-chart-2">
-      <CardHeader className="flex flex-row items-start justify-between space-y-0 pb-2">
-        <div className="flex flex-col gap-1">
+    <Card className="border border-border bg-card shadow-sm">
+      <CardHeader className="flex flex-row items-start justify-between space-y-0 pb-3">
+        <div className="flex flex-col gap-1.5">
           <div className="flex items-center gap-2">
-            <CardTitle className="text-lg font-bold text-chart-2">
+            <CardTitle className="text-sm font-semibold text-foreground">
               {title}
             </CardTitle>
             {categoryTag ? (
               <Badge
                 variant="outline"
                 className={cn(
-                  "border-slate-200 bg-slate-50 text-slate-700 dark:border-slate-500/50 dark:bg-slate-500/10 dark:text-slate-200",
+                  "text-[10px] px-1.5 py-0 font-medium",
                   categoryClassName
                 )}
               >
@@ -72,15 +72,15 @@ export function MetricCard({
             ) : null}
           </div>
         </div>
-        <div className="p-2 rounded-lg bg-chart-2/10">
+        <div className="p-1.5 rounded-md bg-muted">
           {icon}
         </div>
       </CardHeader>
       <CardContent>
-        <div className="flex items-center text-xs text-muted-foreground mb-4 p-2 bg-secondary rounded-md">
-          <Target className="h-4 w-4 mr-2 flex-shrink-0" />
+        <div className="flex items-center text-xs text-muted-foreground mb-4 px-2.5 py-2 bg-muted/50 rounded-md border border-border">
+          <Target className="h-3.5 w-3.5 mr-2 flex-shrink-0" />
           <span>
-            Tracking against goal: <strong>{relatedTarget.goal}</strong>
+            Target: <span className="font-medium text-foreground">{relatedTarget.goal}</span>
           </span>
         </div>
         <div className="space-y-2">
@@ -94,9 +94,9 @@ export function MetricCard({
           />
         </div>
         {secondaryLabel ? (
-          <div className="mt-4 rounded-md bg-emerald-50 dark:bg-emerald-900/30 border border-emerald-200 dark:border-emerald-900 px-3 py-2 text-sm text-emerald-700 dark:text-emerald-200">
+          <div className="mt-4 rounded-md bg-muted/60 border border-border px-3 py-2 text-sm text-muted-foreground">
             {secondaryLabel}
-            <span className="ml-1 font-semibold">{secondaryValue ?? "--"}</span>
+            <span className="ml-1 font-semibold text-foreground">{secondaryValue ?? "--"}</span>
           </div>
         ) : null}
         {onSave && (
@@ -109,31 +109,31 @@ export function MetricCard({
         )}
 
         {history && history.length > 0 && (
-          <div className="mt-6 pt-4 border-t border-gray-100 dark:border-gray-700">
-            <h4 className="text-xs font-semibold text-muted-foreground mb-3 uppercase tracking-wider">
+          <div className="mt-6 pt-4 border-t border-border">
+            <h4 className="text-xs font-medium text-muted-foreground mb-3 uppercase tracking-wider">
               Monthly History
             </h4>
-            <div className="overflow-hidden rounded-md border border-gray-200 dark:border-gray-700">
+            <div className="overflow-hidden rounded-md border border-border">
               <table className="w-full text-xs text-left">
-                <thead className="bg-gray-50 dark:bg-gray-800/50">
+                <thead className="bg-muted/50">
                   <tr>
-                    <th className="px-3 py-2 font-medium text-gray-500 dark:text-gray-400">
+                    <th className="px-3 py-2 font-medium text-muted-foreground">
                       Month
                     </th>
-                    <th className="px-3 py-2 font-medium text-gray-500 dark:text-gray-400">
+                    <th className="px-3 py-2 font-medium text-muted-foreground">
                       Value ({unit})
                     </th>
-                    <th className="px-3 py-2 font-medium text-gray-500 dark:text-gray-400">
+                    <th className="px-3 py-2 font-medium text-muted-foreground">
                       Last Updated
                     </th>
                     <th className="w-8"></th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-gray-100 dark:divide-gray-700">
+                <tbody className="divide-y divide-border">
                   {history.map((log, index) => (
                     <tr
                       key={index}
-                      className="hover:bg-gray-50/50 dark:hover:bg-gray-800/50 transition-colors"
+                      className="hover:bg-muted/30 transition-colors"
                     >
                       <td className="px-3 py-2 font-medium">{log.log_month}</td>
                       <td className="px-3 py-2">

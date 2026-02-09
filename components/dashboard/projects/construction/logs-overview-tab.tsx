@@ -148,10 +148,10 @@ export function LogsOverviewTab({
 
   return (
     <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-      <Card className="backdrop-blur-sm bg-white/70 dark:bg-gray-900/70 border border-white/30 dark:border-gray-800/60 shadow-lg rounded-2xl">
+      <Card className="border border-border bg-card shadow-sm">
         <CardHeader>
-          <CardTitle>Daily Input Logs</CardTitle>
-          <CardDescription>
+          <CardTitle className="text-sm font-semibold">Daily Input Logs</CardTitle>
+          <CardDescription className="text-xs">
             Review fuel consumption, equipment emissions, and safety incidents.
           </CardDescription>
         </CardHeader>
@@ -207,10 +207,10 @@ export function LogsOverviewTab({
         </CardContent>
       </Card>
 
-      <Card className="backdrop-blur-sm bg-white/70 dark:bg-gray-900/70 border border-white/30 dark:border-gray-800/60 shadow-lg rounded-2xl">
+      <Card className="border border-border bg-card shadow-sm">
         <CardHeader>
-          <CardTitle>Monthly Input Logs</CardTitle>
-          <CardDescription>
+          <CardTitle className="text-sm font-semibold">Monthly Input Logs</CardTitle>
+          <CardDescription className="text-xs">
             Track utility consumption, waste generation, and Scope 3 totals.
           </CardDescription>
         </CardHeader>
@@ -279,10 +279,10 @@ export function LogsOverviewTab({
         </CardContent>
       </Card>
 
-      <Card className="lg:col-span-2 backdrop-blur-sm bg-white/70 dark:bg-gray-900/70 border border-white/30 dark:border-gray-800/60 shadow-lg rounded-2xl">
+      <Card className="lg:col-span-2 border border-border bg-card shadow-sm">
         <CardHeader>
-          <CardTitle>Material Delivery Logs</CardTitle>
-          <CardDescription>
+          <CardTitle className="text-sm font-semibold">Material Delivery Logs</CardTitle>
+          <CardDescription className="text-xs">
             See sourced materials, supplier details, and planned delivery dates.
           </CardDescription>
         </CardHeader>

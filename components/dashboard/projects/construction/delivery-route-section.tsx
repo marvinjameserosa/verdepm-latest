@@ -225,15 +225,14 @@ export function DeliveryRouteSection({
 
   return (
     <>
-      <Card className="backdrop-blur-sm bg-white/50 dark:bg-gray-800/50 border-white/30 dark:border-gray-700/30 rounded-xl">
+      <Card className="border border-border bg-card shadow-sm">
         <CardHeader>
-          <CardTitle className="text-sm font-medium text-emerald-700 dark:text-emerald-300 flex items-center gap-2">
-          <Truck className="h-4 w-4" />
+          <CardTitle className="text-sm font-semibold text-foreground flex items-center gap-2">
+          <Truck className="h-4 w-4 text-muted-foreground" />
           Logistics & Route Fuel Planning
         </CardTitle>
-        <CardDescription>
-          Plan material deliveries, visualize routes, and calculate fuel
-          consumption for your daily log.
+        <CardDescription className="text-xs">
+          Plan material deliveries, visualize routes, and calculate fuel consumption.
         </CardDescription>
       </CardHeader>
         <CardContent className="space-y-6">
@@ -316,7 +315,7 @@ export function DeliveryRouteSection({
         </div>
 
         {/* Map Display */}
-        <div className="rounded-xl overflow-hidden border border-white/30 dark:border-gray-700/30 h-[300px] w-full relative">
+        <div className="rounded-lg overflow-hidden border border-border h-[300px] w-full relative">
           {typeof window !== "undefined" ? (
             <DeliveryRouteMap
               center={mapDisplayCenter}
@@ -341,7 +340,7 @@ export function DeliveryRouteSection({
             <p className="text-sm font-medium text-muted-foreground">
               Route Distance
             </p>
-            <p className="text-2xl font-bold text-emerald-600">
+            <p className="text-2xl font-bold text-foreground">
               {routeDistanceKm !== null
                 ? `${routeDistanceKm.toFixed(2)} km`
                 : "--"}
@@ -480,10 +479,10 @@ export function DeliveryRouteSection({
       <Dialog open={showUpdateSuccess} onOpenChange={setShowUpdateSuccess}>
         <DialogContent
           showCloseButton={false}
-          className="sm:max-w-md backdrop-blur-xl bg-white/90 dark:bg-gray-900/80 border border-white/40 shadow-2xl"
+          className="sm:max-w-md"
         >
           <DialogHeader className="space-y-3 text-center">
-            <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-emerald-100 text-emerald-700 dark:bg-emerald-500/20 dark:text-emerald-200">
+            <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 text-primary">
               <Save className="h-6 w-6" />
             </div>
             <DialogTitle>Material Updated</DialogTitle>

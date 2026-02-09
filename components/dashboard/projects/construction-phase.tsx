@@ -1,19 +1,12 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import {
-  Card,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-  CardContent,
-} from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
-import { Zap, Droplets, Send, Save, TrendingUp } from "lucide-react";
+import { Zap, Droplets, Save } from "lucide-react";
 import type { Project } from "@/types/project";
 import {
   MonthlyMetricKey,
@@ -762,29 +755,26 @@ export default function ConstructionPhase({ project }: ConstructionPhaseProps) {
 
   return (
     <div className="space-y-6">
-      <div className="border-b border-border pb-4">
-        <div className="flex items-center gap-3">
-          <div className="p-2 rounded-lg bg-muted">
-            <TrendingUp className="h-5 w-5 text-muted-foreground" />
-          </div>
-          <div>
-            <h2 className="text-lg font-semibold text-foreground">
-              {monitoringTitle}
-            </h2>
-            <p className="text-sm text-muted-foreground mt-0.5">
-              {monitoringDescription}
-            </p>
-          </div>
-        </div>
+      {/* Phase header */}
+      <div className="flex flex-col gap-1">
+        <h2 className="text-lg font-semibold tracking-tight text-foreground">
+          {monitoringTitle}
+        </h2>
+        <p className="text-sm text-muted-foreground">
+          {monitoringDescription}
+        </p>
       </div>
 
+      {/* Feedback banners */}
       {errorMessage ? (
-        <div className="rounded-md border border-red-200 bg-red-50 p-3 text-sm text-red-700">
+        <div className="flex items-start gap-3 rounded-lg border border-destructive/30 bg-destructive/5 px-4 py-3 text-sm text-destructive">
+          <span className="mt-0.5 shrink-0 h-1.5 w-1.5 rounded-full bg-destructive" />
           {errorMessage}
         </div>
       ) : null}
       {statusMessage ? (
-        <div className="rounded-md border border-border bg-muted p-3 text-sm text-foreground">
+        <div className="flex items-start gap-3 rounded-lg border border-primary/20 bg-primary/5 px-4 py-3 text-sm text-foreground">
+          <span className="mt-0.5 shrink-0 h-1.5 w-1.5 rounded-full bg-primary" />
           {statusMessage}
         </div>
       ) : null}
@@ -792,37 +782,29 @@ export default function ConstructionPhase({ project }: ConstructionPhaseProps) {
       <Tabs
         value={activeTab}
         onValueChange={(value) => setActiveTab(value as ConstructionTab)}
-        className="space-y-4"
+        className="space-y-6"
       >
-        <TabsList>
-          <TabsTrigger value="daily">Daily Logs</TabsTrigger>
-          <TabsTrigger value="monthly">Monthly Logs</TabsTrigger>
-          <TabsTrigger value="logistics">
-            Material Delivery & Logistics
+        <TabsList className="bg-muted rounded-lg p-1 h-auto flex-wrap">
+          <TabsTrigger value="daily" className="data-[state=active]:bg-card data-[state=active]:shadow-sm rounded-md text-sm">Daily Logs</TabsTrigger>
+          <TabsTrigger value="monthly" className="data-[state=active]:bg-card data-[state=active]:shadow-sm rounded-md text-sm">Monthly Logs</TabsTrigger>
+          <TabsTrigger value="logistics" className="data-[state=active]:bg-card data-[state=active]:shadow-sm rounded-md text-sm">
+            Material Delivery
           </TabsTrigger>
-          <TabsTrigger value="logs">Log History</TabsTrigger>
+          <TabsTrigger value="logs" className="data-[state=active]:bg-card data-[state=active]:shadow-sm rounded-md text-sm">Log History</TabsTrigger>
         </TabsList>
+
         <TabsContent value="daily">
           <div className="space-y-6">
-            {/* Daily Inputs Section */}
-            <div className="space-y-2">
-              <h3 className="text-lg font-semibold text-foreground flex items-center gap-2">
-                <span className="h-2 w-2 rounded-full bg-foreground"></span>
-                Daily Logs
-              </h3>
-              <p className="text-sm text-muted-foreground pl-4">
-                Track daily equipment usage and safety incidents.
-              </p>
-            </div>
-
-            <div className="grid gap-2 max-w-xs">
-              <Label htmlFor="dailyLogDate">Log date</Label>
-              <Input
-                id="dailyLogDate"
-                type="date"
-                value={dailyLogDate}
-                onChange={(event) => setDailyLogDate(event.target.value)}
-              />
+            <div className="flex items-center gap-4">
+              <div className="grid gap-1.5 max-w-xs flex-1">
+                <Label htmlFor="dailyLogDate" className="text-xs font-medium text-muted-foreground uppercase tracking-wider">Log Date</Label>
+                <Input
+                  id="dailyLogDate"
+                  type="date"
+                  value={dailyLogDate}
+                  onChange={(event) => setDailyLogDate(event.target.value)}
+                />
+              </div>
             </div>
 
             <DistanceFuelCard
@@ -844,27 +826,19 @@ export default function ConstructionPhase({ project }: ConstructionPhaseProps) {
             />
           </div>
         </TabsContent>
+
         <TabsContent value="monthly">
           <div className="space-y-6">
-            {/* Monthly Inputs Section */}
-            <div className="space-y-2">
-              <h3 className="text-lg font-semibold text-foreground flex items-center gap-2">
-                <span className="h-2 w-2 rounded-full bg-blue-500"></span>
-                Monthly Logs
-              </h3>
-              <p className="text-sm text-muted-foreground pl-4">
-                Record monthly utility consumption and waste generation.
-              </p>
-            </div>
-
-            <div className="grid gap-2 max-w-xs">
-              <Label htmlFor="monthlyLogMonth">Log month</Label>
-              <Input
-                id="monthlyLogMonth"
-                type="month"
-                value={monthlyLogMonth}
-                onChange={(event) => setMonthlyLogMonth(event.target.value)}
-              />
+            <div className="flex items-center gap-4">
+              <div className="grid gap-1.5 max-w-xs flex-1">
+                <Label htmlFor="monthlyLogMonth" className="text-xs font-medium text-muted-foreground uppercase tracking-wider">Log Month</Label>
+                <Input
+                  id="monthlyLogMonth"
+                  type="month"
+                  value={monthlyLogMonth}
+                  onChange={(event) => setMonthlyLogMonth(event.target.value)}
+                />
+              </div>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -921,7 +895,7 @@ export default function ConstructionPhase({ project }: ConstructionPhaseProps) {
               history={metricsHistory.monthly}
             />
 
-            <div className="flex justify-end pt-4 border-t border-gray-200 dark:border-gray-700">
+            <div className="flex justify-end pt-4 border-t border-border">
               <Button
                 onClick={handleSaveMonthly}
                 disabled={isSubmittingMonthly}
@@ -935,6 +909,7 @@ export default function ConstructionPhase({ project }: ConstructionPhaseProps) {
             </div>
           </div>
         </TabsContent>
+
         <TabsContent value="logistics">
           <div className="space-y-6">
             <MaterialSourcingSection
@@ -992,6 +967,7 @@ export default function ConstructionPhase({ project }: ConstructionPhaseProps) {
             />
           </div>
         </TabsContent>
+
         <TabsContent value="logs">
           <LogsOverviewTab
             dailyLogs={metricsHistory.daily}

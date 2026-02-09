@@ -92,22 +92,22 @@ export function DistanceFuelCard({
   const totalEmissions = totalFuel * EQUIPMENT_EMISSION_FACTOR_KG_PER_LITER;
 
   return (
-    <Card className="glassmorphism card-hover border-l-4 border-l-chart-1 col-span-1 md:col-span-2 lg:col-span-2">
-      <CardHeader className="flex flex-row items-start justify-between space-y-0 pb-2">
+    <Card className="border border-border bg-card shadow-sm col-span-1 md:col-span-2 lg:col-span-2">
+      <CardHeader className="flex flex-row items-start justify-between space-y-0 pb-3">
         <div>
-          <CardTitle className="text-lg font-bold text-chart-1">
-            Equipment Emissions Summary and Safety Performance (TRIR)
+          <CardTitle className="text-sm font-semibold text-foreground">
+            Equipment Emissions & Safety Performance
           </CardTitle>
-          <CardDescription className="mt-1">
-            Track equipment usage and safety incidents.
+          <CardDescription className="mt-1 text-xs">
+            Track equipment usage and safety incidents (TRIR).
           </CardDescription>
         </div>
-        <div className="flex gap-2">
-          <div className="p-2 rounded-lg bg-chart-1/10">
-            <Construction className="h-5 w-5 text-chart-1" />
+        <div className="flex gap-1.5">
+          <div className="p-1.5 rounded-md bg-muted">
+            <Construction className="h-4 w-4 text-muted-foreground" />
           </div>
-          <div className="p-2 rounded-lg bg-chart-5/10">
-            <ShieldAlert className="h-5 w-5 text-chart-5" />
+          <div className="p-1.5 rounded-md bg-muted">
+            <ShieldAlert className="h-4 w-4 text-muted-foreground" />
           </div>
         </div>
       </CardHeader>
@@ -221,15 +221,15 @@ export function DistanceFuelCard({
           )}
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
-            <div className="rounded-md bg-emerald-50 dark:bg-emerald-900/30 border border-emerald-200 dark:border-emerald-900 px-3 py-2 text-emerald-700 dark:text-emerald-200">
+            <div className="rounded-md bg-muted/60 border border-border px-3 py-2 text-muted-foreground">
               Total fuel consumed:
-              <span className="ml-1 font-semibold">
+              <span className="ml-1 font-semibold text-foreground">
                 {totalFuel > 0 ? `${totalFuel.toFixed(2)} L` : "--"}
               </span>
             </div>
-            <div className="rounded-md bg-emerald-50 dark:bg-emerald-900/30 border border-emerald-200 dark:border-emerald-900 px-3 py-2 text-emerald-700 dark:text-emerald-200">
+            <div className="rounded-md bg-muted/60 border border-border px-3 py-2 text-muted-foreground">
               Total CO₂e emitted:
-              <span className="ml-1 font-semibold">
+              <span className="ml-1 font-semibold text-foreground">
                 {totalEmissions > 0 ? `${totalEmissions.toFixed(2)} kg` : "--"}
               </span>
             </div>
@@ -287,9 +287,9 @@ export function DistanceFuelCard({
               />
             </div>
           </div>
-          <div className="rounded-md bg-emerald-50 dark:bg-emerald-900/30 border border-emerald-200 dark:border-emerald-900 px-3 py-2 text-sm text-emerald-700 dark:text-emerald-200">
+          <div className="rounded-md bg-muted/60 border border-border px-3 py-2 text-sm text-muted-foreground">
             Total Recordable Incident Rate:
-            <span className="ml-1 font-semibold">
+            <span className="ml-1 font-semibold text-foreground">
               {computedTrir !== null ? computedTrir.toFixed(2) : "--"}
             </span>
           </div>
@@ -299,11 +299,11 @@ export function DistanceFuelCard({
           </p>
         </div>
 
-        <div className="flex justify-end pt-2">
+        <div className="flex justify-end pt-4 border-t border-border">
           <Button
             onClick={onSave}
             disabled={isSaving}
-            className="w-full bg-emerald-600 hover:bg-emerald-700 text-white"
+            className="w-full sm:w-auto"
           >
             {isSaving ? (
               "Saving..."
@@ -317,37 +317,34 @@ export function DistanceFuelCard({
         </div>
 
         {history && history.length > 0 && (
-          <div className="mt-6 pt-4 border-t border-gray-100 dark:border-gray-700">
-            <h4 className="text-xs font-semibold text-muted-foreground mb-3 uppercase tracking-wider">
+          <div className="mt-6 pt-4 border-t border-border">
+            <h4 className="text-xs font-medium text-muted-foreground mb-3 uppercase tracking-wider">
               Daily History
             </h4>
-            <div className="overflow-hidden rounded-md border border-gray-200 dark:border-gray-700">
+            <div className="overflow-hidden rounded-md border border-border">
               <table className="w-full text-xs text-left">
-                <thead className="bg-gray-50 dark:bg-gray-800/50">
+                <thead className="bg-muted/50">
                   <tr>
-                    <th className="px-3 py-2 font-medium text-gray-500 dark:text-gray-400">
+                    <th className="px-3 py-2 font-medium text-muted-foreground">
                       Date
                     </th>
-                    <th className="px-3 py-2 font-medium text-gray-500 dark:text-gray-400">
+                    <th className="px-3 py-2 font-medium text-muted-foreground">
                       Fuel (L)
                     </th>
-                    <th className="px-3 py-2 font-medium text-gray-500 dark:text-gray-400">
+                    <th className="px-3 py-2 font-medium text-muted-foreground">
                       Equip. Emissions (kg)
                     </th>
-                    <th className="px-3 py-2 font-medium text-gray-500 dark:text-gray-400">
-                      Equip. Emissions (kg)
-                    </th>
-                    <th className="px-3 py-2 font-medium text-gray-500 dark:text-gray-400">
+                    <th className="px-3 py-2 font-medium text-muted-foreground">
                       Safety TRIR
                     </th>
                     <th className="w-8"></th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-gray-100 dark:divide-gray-700">
+                <tbody className="divide-y divide-border">
                   {history.map((log, index) => (
                     <tr
                       key={index}
-                      className="hover:bg-gray-50/50 dark:hover:bg-gray-800/50 transition-colors"
+                      className="hover:bg-muted/30 transition-colors"
                     >
                       <td className="px-3 py-2 font-medium">{log.log_date}</td>
                       <td className="px-3 py-2">
