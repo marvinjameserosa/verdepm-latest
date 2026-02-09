@@ -86,12 +86,12 @@ export default function ProjectPageContent({
     <div className="relative z-10">
       <div className="flex flex-col gap-6 p-6">
         <main className="space-y-6">
-          <div className="backdrop-blur-xl bg-white/70 dark:bg-gray-900/70 rounded-2xl border border-white/20 shadow-2xl p-6">
-            <div className="space-y-2">
-              <h1 className="text-2xl sm:text-3xl font-bold tracking-tight bg-gradient-to-r from-emerald-600 to-emerald-500 bg-clip-text text-transparent">
+          <div className="border-b border-border pb-6">
+            <div className="space-y-1">
+              <h1 className="text-2xl sm:text-3xl font-semibold tracking-tight text-foreground">
                 {project.name}
               </h1>
-              <p className="text-base sm:text-lg text-muted-foreground">
+              <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
                 {project.description || "No description provided yet."}
               </p>
             </div>

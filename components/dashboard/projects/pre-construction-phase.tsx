@@ -632,7 +632,7 @@ export function PreConstructionPhase({
     }
 
     const iconWrapperClass =
-      "mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-emerald-100 text-emerald-700 dark:bg-emerald-500/20 dark:text-emerald-200";
+      "mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-muted text-foreground";
     const materialName = modalContext.materialName;
 
     switch (confirmationVariant) {
@@ -698,22 +698,20 @@ export function PreConstructionPhase({
         </div>
       )}
       {successMessage && (
-        <div className="rounded-md border border-emerald-200 bg-emerald-50 p-3 text-sm text-emerald-700">
+        <div className="rounded-md border border-border bg-muted p-3 text-sm text-foreground">
           {successMessage}
         </div>
       )}
-      <div className="rounded-2xl border border-gray-200/80 dark:border-gray-800 bg-white/80 dark:bg-gray-900/60 p-4 space-y-3">
-        <div className="flex flex-col gap-1">
-          <p className="text-sm font-semibold text-emerald-700 dark:text-emerald-200">
-            {activeStep
-              ? `Currently on: ${activeStep.title}`
-              : "Pre-construction workflow"}
-          </p>
-          <p className="text-sm text-muted-foreground">
-            Complete each step in order. Your progress saves automatically after
-            each section.
-          </p>
-        </div>
+      <div className="border border-border rounded-lg bg-card p-4 space-y-1">
+        <p className="text-sm font-semibold text-card-foreground">
+          {activeStep
+            ? `Currently on: ${activeStep.title}`
+            : "Pre-construction workflow"}
+        </p>
+        <p className="text-sm text-muted-foreground">
+          Complete each step in order. Your progress saves automatically after
+          each section.
+        </p>
       </div>
 
       <div className="lg:grid lg:grid-cols-[280px_1fr] lg:items-start lg:gap-6 space-y-6 lg:space-y-0">
@@ -722,22 +720,22 @@ export function PreConstructionPhase({
             currentStep={step}
             steps={PRECONSTRUCTION_WORKFLOW_STEPS}
           />
-          <div className="rounded-2xl border border-emerald-100 dark:border-emerald-900/40 bg-emerald-50/70 dark:bg-emerald-900/30 p-4 text-sm space-y-2">
-            <p className="font-semibold text-emerald-800 dark:text-emerald-100">
+          <div className="rounded-lg border border-border bg-muted p-4 text-sm space-y-2">
+            <p className="font-semibold text-foreground">
               Quick tip
             </p>
             {step === 1 && (
-              <p className="text-emerald-900/80 dark:text-emerald-100/80">
+              <p className="text-muted-foreground">
                 Tie each ESG target to a measurable KPI.
               </p>
             )}
             {step === 2 && (
-              <p className="text-emerald-900/80 dark:text-emerald-100/80">
+              <p className="text-muted-foreground">
                 Match sourcing notes that support your targets.
               </p>
             )}
             {step === 3 && (
-              <p className="text-emerald-900/80 dark:text-emerald-100/80">
+              <p className="text-muted-foreground">
                 Scan for missing costs or vetting notes before submitting for
                 approval.
               </p>
@@ -802,7 +800,7 @@ export function PreConstructionPhase({
         {modalPresentation ? (
           <DialogContent
             showCloseButton={false}
-            className="sm:max-w-md backdrop-blur-xl bg-white/90 dark:bg-gray-900/80 border border-white/40 shadow-2xl"
+            className="sm:max-w-md bg-card border border-border shadow-lg"
           >
             <DialogHeader className="space-y-3 text-center">
               {modalPresentation.icon}

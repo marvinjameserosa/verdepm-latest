@@ -33,7 +33,7 @@ export default function PostConstructionPhase({
 
   if (isLoading) {
     return (
-      <Card className="backdrop-blur-sm bg-white/50 dark:bg-gray-800/50 border-white/30 dark:border-gray-700/30 rounded-xl">
+      <Card className="border border-border bg-card rounded-lg">
         <CardHeader>
           <CardTitle>Loading post-construction insights…</CardTitle>
         </CardHeader>
@@ -99,8 +99,8 @@ export default function PostConstructionPhase({
 
     if (hasTarget) {
       if (isGood) {
-        statusColor = "text-emerald-600 dark:text-emerald-400";
-        progressColor = "bg-emerald-500";
+        statusColor = "text-blue-600 dark:text-blue-400";
+        progressColor = "bg-blue-500";
       } else {
         const ratio = actual / target!;
         if (ratio > 1.1) {
@@ -182,12 +182,12 @@ export default function PostConstructionPhase({
 
   return (
     <div className="space-y-8 pb-12">
-      <header className="space-y-2">
-        <div className="flex items-center gap-2 text-emerald-700 dark:text-emerald-300">
-          <div className="rounded-lg bg-emerald-100 p-1.5 dark:bg-emerald-900/40">
-            <Award className="h-5 w-5 text-emerald-600 dark:text-emerald-400" />
+      <header className="space-y-1">
+        <div className="flex items-center gap-2">
+          <div className="rounded-lg bg-muted p-1.5">
+            <Award className="h-5 w-5 text-muted-foreground" />
           </div>
-          <h2 className="text-lg font-semibold sm:text-xl">
+          <h2 className="text-lg font-semibold sm:text-xl text-foreground">
             Comprehensive ESG Performance Report
           </h2>
         </div>
@@ -236,7 +236,7 @@ export default function PostConstructionPhase({
         <Card className="border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-950/40 shadow-sm">
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
-              <TrendingUp className="h-5 w-5 text-emerald-600" />
+              <TrendingUp className="h-5 w-5 text-muted-foreground" />
               Emissions Trends
             </CardTitle>
             <CardDescription>

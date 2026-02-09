@@ -37,30 +37,30 @@ export default function ProjectPhases({ project, onProjectUpdated }: ProjectPhas
   };
 
   return (
-    <div className="backdrop-blur-xl bg-white/70 dark:bg-gray-900/70 rounded-2xl border border-white/20 shadow-2xl p-6">
+    <div className="bg-card border border-border rounded-lg p-6">
       <Tabs value={activeTab} onValueChange={handleTabChange} className="w-full">
-        <TabsList className="grid w-full grid-cols-4 bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm rounded-xl p-1">
+        <TabsList className="grid w-full grid-cols-4 bg-muted rounded-lg p-1">
           <TabsTrigger
             value="project-overview"
-            className="data-[state=active]:bg-emerald-100 dark:data-[state=active]:bg-emerald-900/40 data-[state=active]:text-emerald-700 dark:data-[state=active]:text-emerald-300 rounded-lg transition-all duration-200"
+            className="data-[state=active]:bg-card data-[state=active]:text-card-foreground data-[state=active]:shadow-sm rounded-md transition-all duration-150"
           >
             Project Overview
           </TabsTrigger>
           <TabsTrigger
             value="pre-construction"
-            className="data-[state=active]:bg-emerald-100 dark:data-[state=active]:bg-emerald-900/40 data-[state=active]:text-emerald-700 dark:data-[state=active]:text-emerald-300 rounded-lg transition-all duration-200"
+            className="data-[state=active]:bg-card data-[state=active]:text-card-foreground data-[state=active]:shadow-sm rounded-md transition-all duration-150"
           >
             Pre-Construction
           </TabsTrigger>
           <TabsTrigger
             value="construction"
-            className="data-[state=active]:bg-emerald-100 dark:data-[state=active]:bg-emerald-900/40 data-[state=active]:text-emerald-700 dark:data-[state=active]:text-emerald-300 rounded-lg transition-all duration-200"
+            className="data-[state=active]:bg-card data-[state=active]:text-card-foreground data-[state=active]:shadow-sm rounded-md transition-all duration-150"
           >
             Construction
           </TabsTrigger>
           <TabsTrigger
             value="post-construction"
-            className="data-[state=active]:bg-emerald-100 dark:data-[state=active]:bg-emerald-900/40 data-[state=active]:text-emerald-700 dark:data-[state=active]:text-emerald-300 rounded-lg transition-all duration-200"
+            className="data-[state=active]:bg-card data-[state=active]:text-card-foreground data-[state=active]:shadow-sm rounded-md transition-all duration-150"
           >
             Post-Construction
           </TabsTrigger>

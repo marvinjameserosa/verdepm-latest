@@ -762,23 +762,21 @@ export default function ConstructionPhase({ project }: ConstructionPhaseProps) {
 
   return (
     <div className="space-y-6">
-      <Card className="glassmorphism card-hover border-l-4 border-l-chart-1">
-        <CardHeader>
-          <div className="flex items-center gap-3">
-            <div className="p-2 rounded-lg bg-chart-1/10">
-              <TrendingUp className="h-5 w-5 text-chart-1" />
-            </div>
-            <div>
-              <CardTitle className="text-2xl font-bold text-chart-1">
-                {monitoringTitle}
-              </CardTitle>
-              <CardDescription className="mt-1">
-                {monitoringDescription}
-              </CardDescription>
-            </div>
+      <div className="border-b border-border pb-4">
+        <div className="flex items-center gap-3">
+          <div className="p-2 rounded-lg bg-muted">
+            <TrendingUp className="h-5 w-5 text-muted-foreground" />
           </div>
-        </CardHeader>
-      </Card>
+          <div>
+            <h2 className="text-lg font-semibold text-foreground">
+              {monitoringTitle}
+            </h2>
+            <p className="text-sm text-muted-foreground mt-0.5">
+              {monitoringDescription}
+            </p>
+          </div>
+        </div>
+      </div>
 
       {errorMessage ? (
         <div className="rounded-md border border-red-200 bg-red-50 p-3 text-sm text-red-700">
@@ -786,7 +784,7 @@ export default function ConstructionPhase({ project }: ConstructionPhaseProps) {
         </div>
       ) : null}
       {statusMessage ? (
-        <div className="rounded-md border border-emerald-200 bg-emerald-50 p-3 text-sm text-emerald-700">
+        <div className="rounded-md border border-border bg-muted p-3 text-sm text-foreground">
           {statusMessage}
         </div>
       ) : null}
@@ -809,7 +807,7 @@ export default function ConstructionPhase({ project }: ConstructionPhaseProps) {
             {/* Daily Inputs Section */}
             <div className="space-y-2">
               <h3 className="text-lg font-semibold text-foreground flex items-center gap-2">
-                <span className="h-2 w-2 rounded-full bg-emerald-500"></span>
+                <span className="h-2 w-2 rounded-full bg-foreground"></span>
                 Daily Logs
               </h3>
               <p className="text-sm text-muted-foreground pl-4">

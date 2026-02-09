@@ -83,19 +83,19 @@ const renderHighlightedInsight = (text: string, projectName?: string): ReactNode
     }
 
     if (/^Scope\s[123]$/i.test(segment)) {
-      return "font-semibold text-purple-700 dark:text-purple-300";
+      return "font-semibold text-foreground";
     }
 
     if (/^\d+(?:\.\d+)?\s*tCO2e$/i.test(segment)) {
-      return "font-semibold text-emerald-700 dark:text-emerald-300";
+      return "font-semibold text-foreground";
     }
 
     if (/^TRIR$/i.test(segment)) {
-      return "font-semibold text-purple-700 dark:text-purple-300";
+      return "font-semibold text-foreground";
     }
 
     if (/below\s+target/i.test(segment)) {
-      return "font-semibold text-emerald-700 dark:text-emerald-300";
+      return "font-semibold text-foreground";
     }
 
     if (/above\s+target|exceed(?:s|ed)?\s+target/i.test(segment)) {
@@ -103,7 +103,7 @@ const renderHighlightedInsight = (text: string, projectName?: string): ReactNode
     }
 
     if (/dominant|targets?/i.test(segment)) {
-      return "font-semibold text-purple-700 dark:text-purple-300";
+      return "font-semibold text-foreground";
     }
 
     return null;
@@ -761,7 +761,7 @@ export default function ProjectOverviewTab({
     }
 
     const iconWrapperClass =
-      "mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-emerald-100 text-emerald-700 dark:bg-emerald-500/20 dark:text-emerald-200";
+      "mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-muted text-foreground";
 
     switch (confirmationVariant) {
       case "step1Save":
@@ -809,8 +809,8 @@ export default function ProjectOverviewTab({
             {errorMessage}
           </div>
         )}
-        <div className="rounded-2xl border border-gray-200/80 dark:border-gray-800 bg-white/80 dark:bg-gray-900/60 p-4 space-y-2">
-          <p className="text-sm font-semibold text-emerald-700 dark:text-emerald-200">
+        <div className="border border-border rounded-lg bg-card p-4 space-y-1">
+          <p className="text-sm font-semibold text-card-foreground">
             Project Overview
           </p>
           <p className="text-sm text-muted-foreground">
@@ -824,10 +824,10 @@ export default function ProjectOverviewTab({
           initialValues={step1InitialValues}
           isSubmitting={isSavingStep1}
           insightsContent={
-            <Card className="border border-gray-200/80 dark:border-gray-800/70 bg-white/80 dark:bg-gray-900/60 shadow-sm">
+            <Card className="border border-border bg-card shadow-sm">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2 text-base font-semibold">
-                  <Award className="h-5 w-5 text-purple-600" />
+                  <Award className="h-5 w-5 text-muted-foreground" />
                   Performance Insights
                 </CardTitle>
                 <CardDescription>
@@ -864,8 +864,8 @@ export default function ProjectOverviewTab({
                         {aiInsightWarning}
                       </div>
                     ) : null}
-                    <div className="rounded-md border border-gray-200/80 dark:border-gray-800/70 bg-white/60 dark:bg-gray-950/20 p-3">
-                      <ul className="space-y-2 pl-5 list-disc marker:text-purple-600">
+                    <div className="rounded-md border border-border bg-muted/30 p-3">
+                      <ul className="space-y-2 pl-5 list-disc marker:text-muted-foreground">
                         {splitInsightToBullets(aiInsight).map((bullet, index) => (
                           <li key={index} className="text-sm text-foreground leading-relaxed">
                             {renderHighlightedInsight(bullet, resolvedProjectName)}
@@ -894,7 +894,7 @@ export default function ProjectOverviewTab({
         {modalPresentation ? (
           <DialogContent
             showCloseButton={false}
-            className="sm:max-w-md backdrop-blur-xl bg-white/90 dark:bg-gray-900/80 border border-white/40 shadow-2xl"
+            className="sm:max-w-md bg-card border border-border shadow-lg"
           >
             <DialogHeader className="space-y-3 text-center">
               {modalPresentation.icon}
