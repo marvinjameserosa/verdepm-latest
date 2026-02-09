@@ -124,12 +124,12 @@ export default function Step1ProjectSetup({
   return (
     <section className="w-full pb-12">
       <div className="mx-auto flex w-full max-w-6xl flex-col gap-8 px-4 sm:px-6">
-        <header className="space-y-2">
-          <div className="flex items-center gap-2 text-emerald-700 dark:text-emerald-300">
-            <div className="rounded-lg bg-emerald-100 p-1.5 dark:bg-emerald-900/40">
-              <GanttChartSquare className="h-5 w-5 text-emerald-600 dark:text-emerald-400" />
+        <header className="space-y-1">
+          <div className="flex items-center gap-2">
+            <div className="rounded-lg bg-muted p-1.5">
+              <GanttChartSquare className="h-5 w-5 text-muted-foreground" />
             </div>
-            <h2 className="text-lg font-semibold sm:text-xl">
+            <h2 className="text-lg font-semibold sm:text-xl text-foreground">
               Step 1: Project Overview
             </h2>
           </div>
@@ -149,12 +149,12 @@ export default function Step1ProjectSetup({
           )}
           <div className="grid gap-6 lg:grid-cols-2 lg:items-start">
             <div className="space-y-6">
-              <Card className="rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-950/40 shadow-sm">
+              <Card className="border border-border bg-card shadow-sm">
                 <CardHeader className="pb-2 px-6">
-                  <CardTitle className="text-base text-emerald-800 dark:text-emerald-200 tracking-wide">
+                  <CardTitle className="text-base font-semibold text-card-foreground">
                     Project Information
                   </CardTitle>
-                  <CardDescription className="text-xs uppercase tracking-[0.25em] text-muted-foreground">
+                  <CardDescription className="text-xs uppercase tracking-wide text-muted-foreground">
                     Required fields
                   </CardDescription>
                 </CardHeader>
@@ -164,7 +164,6 @@ export default function Step1ProjectSetup({
                     <Input
                       id="projectName"
                       placeholder="e.g., 'Greenwood Tower'"
-                      className="bg-white/80 dark:bg-gray-800/80"
                       value={projectName}
                       onChange={(e) => setProjectName(e.target.value)}
                       required
@@ -184,7 +183,7 @@ export default function Step1ProjectSetup({
                     <Textarea
                       id="projectDescription"
                       placeholder="Describe the project's vision and scope."
-                      className="bg-white/80 dark:bg-gray-800/80 min-h-[140px]"
+                      className="min-h-[140px]"
                       value={projectDescription}
                       onChange={(e) => setProjectDescription(e.target.value)}
                     />
@@ -192,12 +191,12 @@ export default function Step1ProjectSetup({
                 </CardContent>
               </Card>
 
-              <Card className="rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-950/40 shadow-sm">
+              <Card className="border border-border bg-card shadow-sm">
                 <CardHeader className="pb-2 px-6">
-                  <CardTitle className="text-base text-emerald-800 dark:text-emerald-200 tracking-wide">
+                  <CardTitle className="text-base font-semibold text-card-foreground">
                     Team & Timeline
                   </CardTitle>
-                  <CardDescription className="text-xs uppercase tracking-[0.25em] text-muted-foreground">
+                  <CardDescription className="text-xs uppercase tracking-wide text-muted-foreground">
                     Ownership, schedule, client
                   </CardDescription>
                 </CardHeader>
@@ -207,7 +206,6 @@ export default function Step1ProjectSetup({
                     <Input
                       id="clientName"
                       placeholder="Enter client name"
-                      className="bg-white/80 dark:bg-gray-800/80"
                       value={clientName}
                       onChange={(e) => setClientName(e.target.value)}
                     />
@@ -218,7 +216,6 @@ export default function Step1ProjectSetup({
                       <Input
                         id="startDate"
                         type="date"
-                        className="bg-white/80 dark:bg-gray-800/80"
                         value={startDate}
                         onChange={(e) => setStartDate(e.target.value)}
                       />
@@ -228,7 +225,6 @@ export default function Step1ProjectSetup({
                       <Input
                         id="endDate"
                         type="date"
-                        className="bg-white/80 dark:bg-gray-800/80"
                         value={endDate}
                         onChange={(e) => setEndDate(e.target.value)}
                       />
@@ -242,7 +238,6 @@ export default function Step1ProjectSetup({
                       inputMode="decimal"
                       min="0"
                       placeholder="e.g., 500000"
-                      className="bg-white/80 dark:bg-gray-800/80"
                       value={budget}
                       onChange={(e) => setBudget(e.target.value)}
                     />
@@ -259,12 +254,12 @@ export default function Step1ProjectSetup({
                 <div className="space-y-6">{insightsContent}</div>
               ) : null}
 
-              <Card className="rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-950/40 shadow-sm">
+              <Card className="border border-border bg-card shadow-sm">
                 <CardHeader className="pb-2 px-6">
-                  <CardTitle className="text-base text-emerald-800 dark:text-emerald-200 tracking-wide">
+                  <CardTitle className="text-base font-semibold text-card-foreground">
                     Compliance Documents
                   </CardTitle>
-                  <CardDescription className="text-xs uppercase tracking-[0.25em] text-muted-foreground">
+                  <CardDescription className="text-xs uppercase tracking-wide text-muted-foreground">
                     Upload building permit for reference
                   </CardDescription>
                 </CardHeader>
@@ -274,14 +269,14 @@ export default function Step1ProjectSetup({
                     {documentPaths["building-permit"] &&
                     !isReplacingFile &&
                     !files["building-permit"] ? (
-                      <div className="rounded-md border border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-900/50 p-3">
+                      <div className="rounded-md border border-border bg-muted p-3">
                         <div className="flex items-center justify-between">
                           <div className="flex items-center gap-3">
-                            <div className="p-2 bg-white dark:bg-gray-800 rounded-md border border-gray-100 dark:border-gray-700">
-                              <FileText className="h-4 w-4 text-emerald-600 dark:text-emerald-400" />
+                            <div className="p-2 bg-card rounded-md border border-border">
+                              <FileText className="h-4 w-4 text-muted-foreground" />
                             </div>
                             <div className="flex flex-col">
-                              <span className="text-sm font-medium text-gray-700 dark:text-gray-200">
+                              <span className="text-sm font-medium text-foreground">
                                 Document on file
                               </span>
                               <span className="text-xs text-muted-foreground truncate max-w-[200px]">
@@ -332,20 +327,20 @@ export default function Step1ProjectSetup({
                       <div className="space-y-3">
                         <label
                           htmlFor="buildingPermit"
-                          className="group flex w-full cursor-pointer items-center justify-between gap-3 rounded-xl border border-dashed border-emerald-300/60 bg-emerald-50/60 px-4 py-3 text-sm font-medium text-emerald-700 transition-all hover:border-emerald-400 hover:bg-emerald-50 dark:border-emerald-900/50 dark:bg-emerald-950/30 dark:text-emerald-100 dark:hover:border-emerald-700/70 dark:hover:bg-emerald-900/40"
+                          className="group flex w-full cursor-pointer items-center justify-between gap-3 rounded-lg border border-dashed border-border px-4 py-3 text-sm font-medium text-foreground transition-all hover:border-foreground/30 hover:bg-muted"
                         >
                           <div className="flex items-center gap-3">
-                            <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-emerald-500/10 text-emerald-600 transition-colors group-hover:bg-emerald-500/20">
+                            <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-muted text-muted-foreground transition-colors group-hover:bg-muted/80">
                               <Upload className="h-4 w-4" />
                             </span>
                             <div className="flex flex-col gap-1 text-left">
                               <span className="leading-none">Choose File</span>
-                              <span className="text-xs text-muted-foreground dark:text-emerald-100/70">
+                              <span className="text-xs text-muted-foreground">
                                 PDF only · Max 10 MB
                               </span>
                             </div>
                           </div>
-                          <span className="rounded-full bg-emerald-500/10 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-emerald-600 transition group-hover:bg-emerald-500/20">
+                          <span className="rounded-full bg-muted px-3 py-1 text-xs font-semibold uppercase tracking-wide text-muted-foreground transition group-hover:bg-muted/80">
                             Browse
                           </span>
                         </label>
@@ -362,7 +357,7 @@ export default function Step1ProjectSetup({
                           }
                         />
                         {files["building-permit"] ? (
-                          <div className="flex items-center justify-between gap-3 rounded-lg border border-emerald-100 bg-emerald-50/60 px-3 py-2 text-xs text-emerald-700 dark:border-emerald-900/40 dark:bg-emerald-950/30 dark:text-emerald-100">
+                          <div className="flex items-center justify-between gap-3 rounded-lg border border-border bg-muted px-3 py-2 text-xs text-foreground">
                             <div className="flex items-center gap-2 truncate">
                               <FileText className="h-3.5 w-3.5 flex-shrink-0" />
                               <span
@@ -374,7 +369,7 @@ export default function Step1ProjectSetup({
                             </div>
                             <button
                               type="button"
-                              className="rounded-full bg-emerald-500/10 px-2 py-1 text-[11px] font-semibold uppercase tracking-wide text-emerald-600 hover:bg-emerald-500/20 dark:bg-emerald-900/40 dark:text-emerald-200 dark:hover:bg-emerald-900/60"
+                              className="rounded-full bg-card px-2 py-1 text-[11px] font-semibold uppercase tracking-wide text-muted-foreground hover:text-foreground border border-border"
                               onClick={() =>
                                 registerFile("building-permit", null)
                               }
@@ -407,12 +402,12 @@ export default function Step1ProjectSetup({
                 </CardContent>
               </Card>
 
-              <Card className="rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-950/40 shadow-sm">
+              <Card className="border border-border bg-card shadow-sm">
                 <CardHeader className="pb-2 px-6">
-                  <CardTitle className="text-base text-emerald-800 dark:text-emerald-200 tracking-wide">
+                  <CardTitle className="text-base font-semibold text-card-foreground">
                     Project Attributes
                   </CardTitle>
-                  <CardDescription className="text-xs uppercase tracking-[0.25em] text-muted-foreground">
+                  <CardDescription className="text-xs uppercase tracking-wide text-muted-foreground">
                     Status, priority, category
                   </CardDescription>
                 </CardHeader>
@@ -427,7 +422,6 @@ export default function Step1ProjectSetup({
                     >
                       <SelectTrigger
                         id="status"
-                        className="bg-white/80 dark:bg-gray-800/80"
                       >
                         <SelectValue placeholder="Select status" />
                       </SelectTrigger>
@@ -450,7 +444,6 @@ export default function Step1ProjectSetup({
                     >
                       <SelectTrigger
                         id="priority"
-                        className="bg-white/80 dark:bg-gray-800/80"
                       >
                         <SelectValue placeholder="Select priority" />
                       </SelectTrigger>
@@ -471,7 +464,6 @@ export default function Step1ProjectSetup({
                     >
                       <SelectTrigger
                         id="category"
-                        className="bg-white/80 dark:bg-gray-800/80"
                       >
                         <SelectValue placeholder="Select category" />
                       </SelectTrigger>
@@ -489,7 +481,7 @@ export default function Step1ProjectSetup({
             </div>
           </div>
 
-          <div className="flex flex-col gap-3 border-t border-gray-100 pt-6 text-sm text-muted-foreground dark:border-gray-800 lg:flex-row lg:items-center lg:justify-between">
+          <div className="flex flex-col gap-3 border-t border-border pt-6 text-sm text-muted-foreground lg:flex-row lg:items-center lg:justify-between">
             <p>You can revisit this step anytime—details stay saved.</p>
             <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
               <Button
