@@ -9,8 +9,9 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
-import { Award, TrendingUp, Activity, Zap, Truck, Leaf } from "lucide-react";
+import { TrendingUp, Activity, Zap, Truck, Leaf } from "lucide-react";
 import type { Project } from "@/types/project";
+import type { LucideIcon } from "lucide-react";
 import {
   LineChart,
   Line,
@@ -33,9 +34,11 @@ export default function PostConstructionPhase({
 
   if (isLoading) {
     return (
-      <Card className="border border-border bg-card rounded-lg">
+      <Card className="border border-border bg-card shadow-sm">
         <CardHeader>
-          <CardTitle>Loading post-construction insights…</CardTitle>
+          <CardTitle className="text-sm font-semibold">
+            Loading post-construction insights...
+          </CardTitle>
         </CardHeader>
         <CardContent>
           <p className="text-sm text-muted-foreground">
@@ -49,16 +52,10 @@ export default function PostConstructionPhase({
 
   if (error) {
     return (
-      <Card className="border-red-200 bg-red-50 dark:bg-red-900/20">
-        <CardHeader>
-          <CardTitle className="text-red-700 dark:text-red-400">
-            Error Loading Data
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <p className="text-sm text-red-600 dark:text-red-300">{error}</p>
-        </CardContent>
-      </Card>
+      <div className="flex items-start gap-3 rounded-lg border border-destructive/30 bg-destructive/5 px-4 py-3 text-sm text-destructive">
+        <span className="mt-0.5 shrink-0 h-1.5 w-1.5 rounded-full bg-destructive" />
+        {error}
+      </div>
     );
   }
 
@@ -73,131 +70,10 @@ export default function PostConstructionPhase({
       value
     );
 
-  const ComparisonCard = ({
-    title,
-    description,
-    target,
-    actual,
-    unit,
-    icon: Icon,
-    inverse = false,
-  }: {
-    title: string;
-    description: string;
-    target: number | null;
-    actual: number;
-    unit: string;
-    icon: any;
-    inverse?: boolean;
-  }) => {
-    const hasTarget = target !== null && target !== undefined && target > 0;
-    const percentage = hasTarget ? (actual / target!) * 100 : 0;
-    const isGood = inverse ? actual >= target! : actual <= target!;
-
-    let statusColor = "text-gray-500";
-    let progressColor = "bg-gray-200";
-
-    if (hasTarget) {
-      if (isGood) {
-        statusColor = "text-blue-600 dark:text-blue-400";
-        progressColor = "bg-blue-500";
-      } else {
-        const ratio = actual / target!;
-        if (ratio > 1.1) {
-          statusColor = "text-red-600 dark:text-red-400";
-          progressColor = "bg-red-500";
-        } else {
-          statusColor = "text-amber-600 dark:text-amber-400";
-          progressColor = "bg-amber-500";
-        }
-      }
-    }
-
-    return (
-      <Card className="border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-950/40 shadow-sm hover:shadow-md transition-shadow duration-200">
-        <CardHeader className="pb-2 flex flex-row items-center justify-between space-y-0">
-          <div>
-            <CardTitle className="text-base font-semibold text-gray-900 dark:text-gray-100">
-              {title}
-            </CardTitle>
-            <CardDescription className="text-xs text-muted-foreground mt-1">
-              {description}
-            </CardDescription>
-          </div>
-          <div className={`p-2 rounded-full bg-gray-100 dark:bg-gray-800`}>
-            <Icon className="h-5 w-5 text-gray-600 dark:text-gray-400" />
-          </div>
-        </CardHeader>
-        <CardContent>
-          <div className="space-y-4">
-            <div className="flex items-end justify-between">
-              <div>
-                <p className="text-sm font-medium text-muted-foreground">
-                  Actual
-                </p>
-                <p className="text-2xl font-bold">
-                  {formatNumber(actual)}{" "}
-                  <span className="text-sm font-normal text-muted-foreground">
-                    {unit}
-                  </span>
-                </p>
-              </div>
-              <div className="text-right">
-                <p className="text-sm font-medium text-muted-foreground">
-                  Target
-                </p>
-                <p className="text-lg font-semibold">
-                  {hasTarget ? formatNumber(target!) : "—"}{" "}
-                  <span className="text-sm font-normal text-muted-foreground">
-                    {unit}
-                  </span>
-                </p>
-              </div>
-            </div>
-
-            {hasTarget && (
-              <div className="space-y-1">
-                <div className="flex justify-between text-xs">
-                  <span className={statusColor}>
-                    {percentage.toFixed(1)}% of target
-                  </span>
-                </div>
-                <Progress
-                  value={Math.min(percentage, 100)}
-                  className={`h-2 ${progressColor}`}
-                />
-              </div>
-            )}
-
-            {!hasTarget && (
-              <div className="text-xs text-muted-foreground italic">
-                No target set
-              </div>
-            )}
-          </div>
-        </CardContent>
-      </Card>
-    );
-  };
-
   return (
-    <div className="space-y-8 pb-12">
-      <header className="space-y-1">
-        <div className="flex items-center gap-2">
-          <div className="rounded-lg bg-muted p-1.5">
-            <Award className="h-5 w-5 text-muted-foreground" />
-          </div>
-          <h2 className="text-lg font-semibold sm:text-xl text-foreground">
-            Comprehensive ESG Performance Report
-          </h2>
-        </div>
-        <p className="text-sm text-muted-foreground">
-          Detailed analysis of environmental impact and safety metrics against
-          project baselines.
-        </p>
-      </header>
-
-      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+    <div className="space-y-6">
+      {/* KPI cards */}
+      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
         <ComparisonCard
           title="Scope 1 Emissions"
           description="Direct emissions from owned/controlled sources."
@@ -205,6 +81,7 @@ export default function PostConstructionPhase({
           actual={actuals.scope_one}
           unit="tCO2e"
           icon={Truck}
+          formatNumber={formatNumber}
         />
         <ComparisonCard
           title="Scope 2 Emissions"
@@ -213,6 +90,7 @@ export default function PostConstructionPhase({
           actual={actuals.scope_two}
           unit="tCO2e"
           icon={Zap}
+          formatNumber={formatNumber}
         />
         <ComparisonCard
           title="Scope 3 Emissions"
@@ -221,6 +99,7 @@ export default function PostConstructionPhase({
           actual={actuals.scope_three}
           unit="tCO2e"
           icon={Leaf}
+          formatNumber={formatNumber}
         />
         <ComparisonCard
           title="Safety TRIR"
@@ -229,119 +108,232 @@ export default function PostConstructionPhase({
           actual={actuals.trir}
           unit=""
           icon={Activity}
+          formatNumber={formatNumber}
         />
       </div>
 
-      <div>
-        <Card className="border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-950/40 shadow-sm">
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <TrendingUp className="h-5 w-5 text-muted-foreground" />
-              Emissions Trends
-            </CardTitle>
-            <CardDescription>
-              Monthly breakdown of Scope 1, 2, and 3 emissions over the project
-              lifecycle.
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="h-[300px] w-full">
-              <ResponsiveContainer width="100%" height="100%">
-                <LineChart
-                  data={trends}
-                  margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
-                >
-                  <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
-                  <XAxis
-                    dataKey="date"
-                    stroke="#6b7280"
-                    fontSize={12}
-                    tickLine={false}
-                    axisLine={false}
-                  />
-                  <YAxis
-                    stroke="#6b7280"
-                    fontSize={12}
-                    tickLine={false}
-                    axisLine={false}
-                    tickFormatter={(value) => `${value}t`}
-                  />
-                  <Tooltip
-                    contentStyle={{
-                      backgroundColor: "rgba(255, 255, 255, 0.9)",
-                      borderRadius: "8px",
-                      border: "1px solid #e5e7eb",
-                      boxShadow: "0 4px 6px -1px rgba(0, 0, 0, 0.1)",
-                    }}
-                  />
-                  <Legend />
-                  <Line
-                    type="monotone"
-                    dataKey="scope_one"
-                    name="Scope 1"
-                    stroke="#ef4444"
-                    strokeWidth={2}
-                    dot={{ r: 4 }}
-                    activeDot={{ r: 6 }}
-                  />
-                  <Line
-                    type="monotone"
-                    dataKey="target_scope_one"
-                    name="Target Scope 1"
-                    stroke="#ef4444"
-                    strokeWidth={2}
-                    strokeDasharray="5 5"
-                    dot={false}
-                    activeDot={false}
-                    strokeOpacity={0.6}
-                  />
-                  <Line
-                    type="monotone"
-                    dataKey="scope_two"
-                    name="Scope 2"
-                    stroke="#f59e0b"
-                    strokeWidth={2}
-                    dot={{ r: 4 }}
-                    activeDot={{ r: 6 }}
-                  />
-                  <Line
-                    type="monotone"
-                    dataKey="target_scope_two"
-                    name="Target Scope 2"
-                    stroke="#f59e0b"
-                    strokeWidth={2}
-                    strokeDasharray="5 5"
-                    dot={false}
-                    activeDot={false}
-                    strokeOpacity={0.6}
-                  />
-                  <Line
-                    type="monotone"
-                    dataKey="scope_three"
-                    name="Scope 3"
-                    stroke="#10b981"
-                    strokeWidth={2}
-                    dot={{ r: 4 }}
-                    activeDot={{ r: 6 }}
-                  />
-                  <Line
-                    type="monotone"
-                    dataKey="target_scope_three"
-                    name="Target Scope 3"
-                    stroke="#10b981"
-                    strokeWidth={2}
-                    strokeDasharray="5 5"
-                    dot={false}
-                    activeDot={false}
-                    strokeOpacity={0.6}
-                  />
-                </LineChart>
-              </ResponsiveContainer>
-            </div>
-          </CardContent>
-        </Card>
-      </div>
+      {/* Trend chart */}
+      <Card className="border border-border bg-card shadow-sm">
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2 text-sm font-semibold">
+            <TrendingUp className="h-4 w-4 text-muted-foreground" />
+            Emissions Trends
+          </CardTitle>
+          <CardDescription className="text-xs">
+            Monthly breakdown of Scope 1, 2, and 3 emissions over the project
+            lifecycle.
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className="h-[300px] w-full">
+            <ResponsiveContainer width="100%" height="100%">
+              <LineChart
+                data={trends}
+                margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+              >
+                <CartesianGrid
+                  strokeDasharray="3 3"
+                  className="stroke-border"
+                />
+                <XAxis
+                  dataKey="date"
+                  className="fill-muted-foreground"
+                  fontSize={12}
+                  tickLine={false}
+                  axisLine={false}
+                />
+                <YAxis
+                  className="fill-muted-foreground"
+                  fontSize={12}
+                  tickLine={false}
+                  axisLine={false}
+                  tickFormatter={(value) => `${value}t`}
+                />
+                <Tooltip
+                  contentStyle={{
+                    backgroundColor: "var(--card)",
+                    color: "var(--card-foreground)",
+                    borderRadius: "8px",
+                    border: "1px solid var(--border)",
+                    boxShadow: "0 4px 6px -1px rgba(0,0,0,.05)",
+                  }}
+                />
+                <Legend />
+                <Line
+                  type="monotone"
+                  dataKey="scope_one"
+                  name="Scope 1"
+                  stroke="var(--chart-5)"
+                  strokeWidth={2}
+                  dot={{ r: 3 }}
+                  activeDot={{ r: 5 }}
+                />
+                <Line
+                  type="monotone"
+                  dataKey="target_scope_one"
+                  name="Target Scope 1"
+                  stroke="var(--chart-5)"
+                  strokeWidth={1.5}
+                  strokeDasharray="5 5"
+                  dot={false}
+                  activeDot={false}
+                  strokeOpacity={0.4}
+                />
+                <Line
+                  type="monotone"
+                  dataKey="scope_two"
+                  name="Scope 2"
+                  stroke="var(--chart-4)"
+                  strokeWidth={2}
+                  dot={{ r: 3 }}
+                  activeDot={{ r: 5 }}
+                />
+                <Line
+                  type="monotone"
+                  dataKey="target_scope_two"
+                  name="Target Scope 2"
+                  stroke="var(--chart-4)"
+                  strokeWidth={1.5}
+                  strokeDasharray="5 5"
+                  dot={false}
+                  activeDot={false}
+                  strokeOpacity={0.4}
+                />
+                <Line
+                  type="monotone"
+                  dataKey="scope_three"
+                  name="Scope 3"
+                  stroke="var(--chart-1)"
+                  strokeWidth={2}
+                  dot={{ r: 3 }}
+                  activeDot={{ r: 5 }}
+                />
+                <Line
+                  type="monotone"
+                  dataKey="target_scope_three"
+                  name="Target Scope 3"
+                  stroke="var(--chart-1)"
+                  strokeWidth={1.5}
+                  strokeDasharray="5 5"
+                  dot={false}
+                  activeDot={false}
+                  strokeOpacity={0.4}
+                />
+              </LineChart>
+            </ResponsiveContainer>
+          </div>
+        </CardContent>
+      </Card>
     </div>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/*  ComparisonCard – extracted as a named component for clarity        */
+/* ------------------------------------------------------------------ */
+
+function ComparisonCard({
+  title,
+  description,
+  target,
+  actual,
+  unit,
+  icon: Icon,
+  inverse = false,
+  formatNumber,
+}: {
+  title: string;
+  description: string;
+  target: number | null;
+  actual: number;
+  unit: string;
+  icon: LucideIcon;
+  inverse?: boolean;
+  formatNumber: (v: number, d?: number) => string;
+}) {
+  const hasTarget = target !== null && target !== undefined && target > 0;
+  const percentage = hasTarget ? (actual / target!) * 100 : 0;
+  const isGood = inverse ? actual >= target! : actual <= target!;
+
+  let statusColor = "text-muted-foreground";
+  if (hasTarget) {
+    if (isGood) {
+      statusColor = "text-primary";
+    } else {
+      const ratio = actual / target!;
+      statusColor =
+        ratio > 1.1
+          ? "text-destructive"
+          : "text-amber-600 dark:text-amber-400";
+    }
+  }
+
+  return (
+    <Card className="border border-border bg-card shadow-sm">
+      <CardHeader className="pb-2 flex flex-row items-center justify-between space-y-0">
+        <div className="min-w-0">
+          <CardTitle className="text-sm font-semibold text-foreground">
+            {title}
+          </CardTitle>
+          <CardDescription className="text-[11px] mt-0.5">
+            {description}
+          </CardDescription>
+        </div>
+        <div className="p-1.5 rounded-md bg-muted shrink-0">
+          <Icon className="h-4 w-4 text-muted-foreground" />
+        </div>
+      </CardHeader>
+      <CardContent>
+        <div className="space-y-3">
+          <div className="flex items-end justify-between">
+            <div>
+              <p className="text-[11px] font-medium text-muted-foreground uppercase tracking-wider">
+                Actual
+              </p>
+              <p className="text-xl font-bold text-foreground">
+                {formatNumber(actual)}
+                {unit ? (
+                  <span className="ml-1 text-xs font-normal text-muted-foreground">
+                    {unit}
+                  </span>
+                ) : null}
+              </p>
+            </div>
+            <div className="text-right">
+              <p className="text-[11px] font-medium text-muted-foreground uppercase tracking-wider">
+                Target
+              </p>
+              <p className="text-base font-semibold text-foreground">
+                {hasTarget ? formatNumber(target!) : "--"}
+                {unit ? (
+                  <span className="ml-1 text-xs font-normal text-muted-foreground">
+                    {unit}
+                  </span>
+                ) : null}
+              </p>
+            </div>
+          </div>
+
+          {hasTarget ? (
+            <div className="space-y-1.5">
+              <div className="flex justify-between text-xs">
+                <span className={statusColor}>
+                  {percentage.toFixed(1)}% of target
+                </span>
+              </div>
+              <Progress
+                value={Math.min(percentage, 100)}
+                className="h-1.5"
+              />
+            </div>
+          ) : (
+            <p className="text-xs text-muted-foreground italic">
+              No target set
+            </p>
+          )}
+        </div>
+      </CardContent>
+    </Card>
   );
 }
 
