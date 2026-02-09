@@ -735,36 +735,8 @@ export default function ConstructionPhase({ project }: ConstructionPhaseProps) {
     },
   ] as const;
 
-  const monitoringTitle =
-    activeTab === "logistics"
-      ? "Construction Phase: Logistics & Delivery Planning"
-      : activeTab === "monthly"
-      ? "Construction Phase: Monthly Environmental Metrics"
-      : activeTab === "logs"
-      ? "Construction Phase: Log History"
-      : "Construction Phase: Daily Site Monitoring";
-
-  const monitoringDescription =
-    activeTab === "logistics"
-      ? "Plan material deliveries and calculate route fuel consumption."
-      : activeTab === "monthly"
-      ? "Track monthly utility consumption and waste generation."
-      : activeTab === "logs"
-      ? "View submitted daily, monthly, and material logs in one place."
-      : "Track daily equipment usage and safety incidents.";
-
   return (
     <div className="space-y-6">
-      {/* Phase header */}
-      <div className="flex flex-col gap-1">
-        <h2 className="text-lg font-semibold tracking-tight text-foreground">
-          {monitoringTitle}
-        </h2>
-        <p className="text-sm text-muted-foreground">
-          {monitoringDescription}
-        </p>
-      </div>
-
       {/* Feedback banners */}
       {errorMessage ? (
         <div className="flex items-start gap-3 rounded-lg border border-destructive/30 bg-destructive/5 px-4 py-3 text-sm text-destructive">
