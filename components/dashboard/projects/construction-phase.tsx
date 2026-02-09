@@ -756,11 +756,11 @@ export default function ConstructionPhase({ project }: ConstructionPhaseProps) {
         onValueChange={(value) => setActiveTab(value as ConstructionTab)}
         className="space-y-6"
       >
-        <TabsList className="w-full justify-start">
-          <TabsTrigger value="daily">Daily Logs</TabsTrigger>
-          <TabsTrigger value="monthly">Monthly Logs</TabsTrigger>
-          <TabsTrigger value="logistics">Material Delivery</TabsTrigger>
-          <TabsTrigger value="logs">Log History</TabsTrigger>
+        <TabsList className="h-auto w-full justify-start gap-4 rounded-none border-b border-border bg-transparent p-0">
+          <TabsTrigger value="daily" className="relative rounded-none border-b-2 border-transparent bg-transparent px-1 pb-2.5 pt-1 shadow-none data-[state=active]:border-b-primary data-[state=active]:bg-transparent data-[state=active]:shadow-none data-[state=active]:text-foreground text-muted-foreground">Daily Logs</TabsTrigger>
+          <TabsTrigger value="monthly" className="relative rounded-none border-b-2 border-transparent bg-transparent px-1 pb-2.5 pt-1 shadow-none data-[state=active]:border-b-primary data-[state=active]:bg-transparent data-[state=active]:shadow-none data-[state=active]:text-foreground text-muted-foreground">Monthly Logs</TabsTrigger>
+          <TabsTrigger value="logistics" className="relative rounded-none border-b-2 border-transparent bg-transparent px-1 pb-2.5 pt-1 shadow-none data-[state=active]:border-b-primary data-[state=active]:bg-transparent data-[state=active]:shadow-none data-[state=active]:text-foreground text-muted-foreground">Material Delivery</TabsTrigger>
+          <TabsTrigger value="logs" className="relative rounded-none border-b-2 border-transparent bg-transparent px-1 pb-2.5 pt-1 shadow-none data-[state=active]:border-b-primary data-[state=active]:bg-transparent data-[state=active]:shadow-none data-[state=active]:text-foreground text-muted-foreground">Log History</TabsTrigger>
         </TabsList>
 
         <TabsContent value="daily">
