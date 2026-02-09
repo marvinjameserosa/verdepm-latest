@@ -58,7 +58,7 @@ export function AddProjectModal({ onProjectCreated }: AddProjectModalProps) {
           <span className="sm:hidden">New</span>
         </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[560px] max-h-[85vh] bg-card border border-border shadow-lg p-0 flex flex-col overflow-hidden min-h-0">
+      <DialogContent className="sm:max-w-[720px] max-h-[85vh] bg-card border border-border shadow-lg p-0 flex flex-col overflow-hidden min-h-0">
         <form onSubmit={handleSubmit} className="flex h-full flex-col min-h-0">
           <DialogHeader className="px-6 pt-6 pb-4 border-b border-border shrink-0">
             <DialogTitle className="text-lg font-semibold text-card-foreground">
