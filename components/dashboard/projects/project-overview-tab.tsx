@@ -809,15 +809,6 @@ export default function ProjectOverviewTab({
             {errorMessage}
           </div>
         )}
-        <div className="border border-border rounded-lg bg-card p-4 space-y-1">
-          <p className="text-sm font-semibold text-card-foreground">
-            Project Overview
-          </p>
-          <p className="text-sm text-muted-foreground">
-            Capture the foundational project details and confirm compliance files before the ESG workflow.
-          </p>
-        </div>
-
         <Step1ProjectSetup
           onSubmit={handleStep1Submit}
           onSave={handleStep1Save}

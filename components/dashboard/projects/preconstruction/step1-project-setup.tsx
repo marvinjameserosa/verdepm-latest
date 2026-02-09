@@ -1,17 +1,10 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { GanttChartSquare, FileText, Upload } from "lucide-react";
+import { FileText, Upload } from "lucide-react";
 import LocationPicker from "@/components/ui/location-picker";
 import { ErrorDisplay } from "@/components/ui/error-display";
 import { useProjectSetupForm } from "@/hooks/useProjectSetupForm";
@@ -122,388 +115,352 @@ export default function Step1ProjectSetup({
   }
 
   return (
-    <section className="w-full pb-12">
-      <div className="mx-auto flex w-full max-w-6xl flex-col gap-8 px-4 sm:px-6">
-        <header className="space-y-1">
-          <div className="flex items-center gap-2">
-            <div className="rounded-lg bg-muted p-1.5">
-              <GanttChartSquare className="h-5 w-5 text-muted-foreground" />
-            </div>
-            <h2 className="text-lg font-semibold sm:text-xl text-foreground">
-              Step 1: Project Overview
-            </h2>
+    <section className="w-full">
+      <form onSubmit={handleSubmit} className="space-y-8">
+        {error && (
+          <ErrorDisplay
+            title={error.title}
+            message={error.message}
+            className="mb-2"
+          />
+        )}
+
+        {/* Project Information */}
+        <div className="space-y-5">
+          <div className="border-b border-border pb-2">
+            <h3 className="text-sm font-semibold text-foreground">Project Information</h3>
+            <p className="text-xs text-muted-foreground mt-0.5">Required fields</p>
           </div>
-          <p className="text-sm text-muted-foreground">
-            Capture the baseline project narrative, location, and compliance
-            context before moving into target setting.
-          </p>
-        </header>
-
-        <form onSubmit={handleSubmit} className="space-y-6">
-          {error && (
-            <ErrorDisplay
-              title={error.title}
-              message={error.message}
-              className="mb-2"
-            />
-          )}
-          <div className="grid gap-6 lg:grid-cols-2 lg:items-start">
-            <div className="space-y-6">
-              <Card className="border border-border bg-card shadow-sm">
-                <CardHeader className="pb-2 px-6">
-                  <CardTitle className="text-base font-semibold text-card-foreground">
-                    Project Information
-                  </CardTitle>
-                  <CardDescription className="text-xs uppercase tracking-wide text-muted-foreground">
-                    Required fields
-                  </CardDescription>
-                </CardHeader>
-                <CardContent className="px-6 pb-6 space-y-6">
-                  <div className="space-y-2">
-                    <Label htmlFor="projectName">Project Name</Label>
-                    <Input
-                      id="projectName"
-                      placeholder="e.g., 'Greenwood Tower'"
-                      value={projectName}
-                      onChange={(e) => setProjectName(e.target.value)}
-                      required
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="projectAddress">Project Address</Label>
-                    <LocationPicker
-                      value={projectAddress}
-                      onChange={setProjectAddress}
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="projectDescription">
-                      Project Description
-                    </Label>
-                    <Textarea
-                      id="projectDescription"
-                      placeholder="Describe the project's vision and scope."
-                      className="min-h-[140px]"
-                      value={projectDescription}
-                      onChange={(e) => setProjectDescription(e.target.value)}
-                    />
-                  </div>
-                </CardContent>
-              </Card>
-
-              <Card className="border border-border bg-card shadow-sm">
-                <CardHeader className="pb-2 px-6">
-                  <CardTitle className="text-base font-semibold text-card-foreground">
-                    Team & Timeline
-                  </CardTitle>
-                  <CardDescription className="text-xs uppercase tracking-wide text-muted-foreground">
-                    Ownership, schedule, client
-                  </CardDescription>
-                </CardHeader>
-                <CardContent className="px-6 pb-6 space-y-5">
-                  <div className="space-y-2">
-                    <Label htmlFor="clientName">Client / Customer</Label>
-                    <Input
-                      id="clientName"
-                      placeholder="Enter client name"
-                      value={clientName}
-                      onChange={(e) => setClientName(e.target.value)}
-                    />
-                  </div>
-                  <div className="grid gap-4 sm:grid-cols-2">
-                    <div className="space-y-2">
-                      <Label htmlFor="startDate">Start Date</Label>
-                      <Input
-                        id="startDate"
-                        type="date"
-                        value={startDate}
-                        onChange={(e) => setStartDate(e.target.value)}
-                      />
-                    </div>
-                    <div className="space-y-2">
-                      <Label htmlFor="endDate">Target End Date</Label>
-                      <Input
-                        id="endDate"
-                        type="date"
-                        value={endDate}
-                        onChange={(e) => setEndDate(e.target.value)}
-                      />
-                    </div>
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="budget">Estimated Budget</Label>
-                    <Input
-                      id="budget"
-                      type="number"
-                      inputMode="decimal"
-                      min="0"
-                      placeholder="e.g., 500000"
-                      value={budget}
-                      onChange={(e) => setBudget(e.target.value)}
-                    />
-                    <p className="text-xs text-muted-foreground">
-                      Leave blank to keep the current budget value.
-                    </p>
-                  </div>
-                </CardContent>
-              </Card>
+          <div className="grid gap-5 sm:grid-cols-2">
+            <div className="space-y-2">
+              <Label htmlFor="projectName">Project Name</Label>
+              <Input
+                id="projectName"
+                placeholder="e.g., Greenwood Tower"
+                value={projectName}
+                onChange={(e) => setProjectName(e.target.value)}
+                required
+              />
             </div>
+            <div className="space-y-2">
+              <Label htmlFor="projectAddress">Project Address</Label>
+              <LocationPicker
+                value={projectAddress}
+                onChange={setProjectAddress}
+              />
+            </div>
+            <div className="space-y-2 sm:col-span-2">
+              <Label htmlFor="projectDescription">
+                Project Description
+              </Label>
+              <Textarea
+                id="projectDescription"
+                placeholder="Describe the project's vision and scope."
+                className="min-h-[120px]"
+                value={projectDescription}
+                onChange={(e) => setProjectDescription(e.target.value)}
+              />
+            </div>
+          </div>
+        </div>
 
-            <div className="space-y-6">
-              {insightsContent ? (
-                <div className="space-y-6">{insightsContent}</div>
-              ) : null}
+        {/* Team & Timeline */}
+        <div className="space-y-5">
+          <div className="border-b border-border pb-2">
+            <h3 className="text-sm font-semibold text-foreground">Team & Timeline</h3>
+            <p className="text-xs text-muted-foreground mt-0.5">Ownership, schedule, client</p>
+          </div>
+          <div className="grid gap-5 sm:grid-cols-3">
+            <div className="space-y-2">
+              <Label htmlFor="clientName">Client / Customer</Label>
+              <Input
+                id="clientName"
+                placeholder="Enter client name"
+                value={clientName}
+                onChange={(e) => setClientName(e.target.value)}
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="startDate">Start Date</Label>
+              <Input
+                id="startDate"
+                type="date"
+                value={startDate}
+                onChange={(e) => setStartDate(e.target.value)}
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="endDate">Target End Date</Label>
+              <Input
+                id="endDate"
+                type="date"
+                value={endDate}
+                onChange={(e) => setEndDate(e.target.value)}
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="budget">Estimated Budget</Label>
+              <Input
+                id="budget"
+                type="number"
+                inputMode="decimal"
+                min="0"
+                placeholder="e.g., 500000"
+                value={budget}
+                onChange={(e) => setBudget(e.target.value)}
+              />
+              <p className="text-xs text-muted-foreground">
+                Leave blank to keep the current budget value.
+              </p>
+            </div>
+          </div>
+        </div>
 
-              <Card className="border border-border bg-card shadow-sm">
-                <CardHeader className="pb-2 px-6">
-                  <CardTitle className="text-base font-semibold text-card-foreground">
-                    Compliance Documents
-                  </CardTitle>
-                  <CardDescription className="text-xs uppercase tracking-wide text-muted-foreground">
-                    Upload building permit for reference
-                  </CardDescription>
-                </CardHeader>
-                <CardContent className="px-6 pb-6 space-y-4 text-sm">
-                  <div className="space-y-2">
-                    <Label htmlFor="buildingPermit">Building Permit</Label>
-                    {documentPaths["building-permit"] &&
-                    !isReplacingFile &&
-                    !files["building-permit"] ? (
-                      <div className="rounded-md border border-border bg-muted p-3">
-                        <div className="flex items-center justify-between">
-                          <div className="flex items-center gap-3">
-                            <div className="p-2 bg-card rounded-md border border-border">
-                              <FileText className="h-4 w-4 text-muted-foreground" />
-                            </div>
-                            <div className="flex flex-col">
-                              <span className="text-sm font-medium text-foreground">
-                                Document on file
-                              </span>
-                              <span className="text-xs text-muted-foreground truncate max-w-[200px]">
-                                {documentPaths["building-permit"]
-                                  ?.split("/")
-                                  .pop()}
-                              </span>
-                            </div>
-                          </div>
-                          <div className="flex items-center gap-2">
-                            <Button
-                              type="button"
-                              variant="ghost"
-                              size="sm"
-                              onClick={() =>
-                                handleViewFile(
-                                  documentPaths["building-permit"]!
-                                )
-                              }
-                              disabled={
-                                verifyingFile ===
-                                documentPaths["building-permit"]
-                              }
-                            >
-                              {verifyingFile ===
-                              documentPaths["building-permit"] ? (
-                                <Loader2 className="h-3.5 w-3.5 animate-spin mr-1" />
-                              ) : null}
-                              View
-                            </Button>
-                            <Button
-                              type="button"
-                              variant="outline"
-                              size="sm"
-                              onClick={() => setIsReplacingFile(true)}
-                            >
-                              Replace
-                            </Button>
-                          </div>
-                        </div>
-                        {fileError && (
-                          <p className="text-xs text-red-600 dark:text-red-400 mt-2 px-1">
-                            {fileError}
-                          </p>
-                        )}
-                      </div>
-                    ) : (
-                      <div className="space-y-3">
-                        <label
-                          htmlFor="buildingPermit"
-                          className="group flex w-full cursor-pointer items-center justify-between gap-3 rounded-lg border border-dashed border-border px-4 py-3 text-sm font-medium text-foreground transition-all hover:border-foreground/30 hover:bg-muted"
-                        >
-                          <div className="flex items-center gap-3">
-                            <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-muted text-muted-foreground transition-colors group-hover:bg-muted/80">
-                              <Upload className="h-4 w-4" />
-                            </span>
-                            <div className="flex flex-col gap-1 text-left">
-                              <span className="leading-none">Choose File</span>
-                              <span className="text-xs text-muted-foreground">
-                                PDF only · Max 10 MB
-                              </span>
-                            </div>
-                          </div>
-                          <span className="rounded-full bg-muted px-3 py-1 text-xs font-semibold uppercase tracking-wide text-muted-foreground transition group-hover:bg-muted/80">
-                            Browse
-                          </span>
-                        </label>
-                        <Input
-                          id="buildingPermit"
-                          type="file"
-                          accept=".pdf"
-                          className="sr-only"
-                          onChange={(event) =>
-                            registerFile(
-                              "building-permit",
-                              event.target.files?.[0] ?? null
-                            )
-                          }
-                        />
-                        {files["building-permit"] ? (
-                          <div className="flex items-center justify-between gap-3 rounded-lg border border-border bg-muted px-3 py-2 text-xs text-foreground">
-                            <div className="flex items-center gap-2 truncate">
-                              <FileText className="h-3.5 w-3.5 flex-shrink-0" />
-                              <span
-                                className="truncate"
-                                title={files["building-permit"]?.name}
-                              >
-                                {files["building-permit"]?.name}
-                              </span>
-                            </div>
-                            <button
-                              type="button"
-                              className="rounded-full bg-card px-2 py-1 text-[11px] font-semibold uppercase tracking-wide text-muted-foreground hover:text-foreground border border-border"
-                              onClick={() =>
-                                registerFile("building-permit", null)
-                              }
-                            >
-                              Remove
-                            </button>
-                          </div>
-                        ) : (
-                          <div className="flex items-center justify-between gap-2 text-xs text-muted-foreground">
-                            <p>Accepted format: PDF.</p>
-                            {documentPaths["building-permit"] && (
-                              <Button
-                                type="button"
-                                variant="ghost"
-                                size="sm"
-                                className="h-auto p-0 text-xs text-muted-foreground hover:text-foreground"
-                                onClick={() => {
-                                  setIsReplacingFile(false);
-                                  registerFile("building-permit", null);
-                                }}
-                              >
-                                Cancel replacement
-                              </Button>
-                            )}
-                          </div>
-                        )}
-                      </div>
+        {/* Project Attributes */}
+        <div className="space-y-5">
+          <div className="border-b border-border pb-2">
+            <h3 className="text-sm font-semibold text-foreground">Project Attributes</h3>
+            <p className="text-xs text-muted-foreground mt-0.5">Status, priority, category</p>
+          </div>
+          <div className="grid gap-5 sm:grid-cols-3">
+            <div className="space-y-2">
+              <Label htmlFor="status">Current Status</Label>
+              <Select
+                value={status}
+                onValueChange={(value) =>
+                  setStatus(value as ProjectStatus)
+                }
+              >
+                <SelectTrigger id="status">
+                  <SelectValue placeholder="Select status" />
+                </SelectTrigger>
+                <SelectContent className="z-[60] max-h-60">
+                  {statusOptions.map((option) => (
+                    <SelectItem key={option.value} value={option.value}>
+                      {option.label}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="priority">Priority</Label>
+              <Select
+                value={priority}
+                onValueChange={(value) =>
+                  setPriority(value as ProjectPriority)
+                }
+              >
+                <SelectTrigger id="priority">
+                  <SelectValue placeholder="Select priority" />
+                </SelectTrigger>
+                <SelectContent className="z-[60] max-h-60">
+                  {priorityOptions.map((option) => (
+                    <SelectItem key={option.value} value={option.value}>
+                      {option.label}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="category">Category</Label>
+              <Select
+                value={category || undefined}
+                onValueChange={(value) => setCategory(value)}
+              >
+                <SelectTrigger id="category">
+                  <SelectValue placeholder="Select category" />
+                </SelectTrigger>
+                <SelectContent className="z-[60] max-h-60">
+                  {categoryOptions.map((option) => (
+                    <SelectItem key={option.value} value={option.value}>
+                      {option.label}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+          </div>
+        </div>
+
+        {/* Compliance Documents */}
+        <div className="space-y-5">
+          <div className="border-b border-border pb-2">
+            <h3 className="text-sm font-semibold text-foreground">Compliance Documents</h3>
+            <p className="text-xs text-muted-foreground mt-0.5">Upload building permit for reference</p>
+          </div>
+          <div className="space-y-2">
+            <Label htmlFor="buildingPermit">Building Permit</Label>
+            {documentPaths["building-permit"] &&
+            !isReplacingFile &&
+            !files["building-permit"] ? (
+              <div className="rounded-md border border-border bg-muted p-3">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-3">
+                    <div className="p-2 bg-card rounded-md border border-border">
+                      <FileText className="h-4 w-4 text-muted-foreground" />
+                    </div>
+                    <div className="flex flex-col">
+                      <span className="text-sm font-medium text-foreground">
+                        Document on file
+                      </span>
+                      <span className="text-xs text-muted-foreground truncate max-w-[200px]">
+                        {documentPaths["building-permit"]
+                          ?.split("/")
+                          .pop()}
+                      </span>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Button
+                      type="button"
+                      variant="ghost"
+                      size="sm"
+                      onClick={() =>
+                        handleViewFile(
+                          documentPaths["building-permit"]!
+                        )
+                      }
+                      disabled={
+                        verifyingFile ===
+                        documentPaths["building-permit"]
+                      }
+                    >
+                      {verifyingFile ===
+                      documentPaths["building-permit"] ? (
+                        <Loader2 className="h-3.5 w-3.5 animate-spin mr-1" />
+                      ) : null}
+                      View
+                    </Button>
+                    <Button
+                      type="button"
+                      variant="outline"
+                      size="sm"
+                      onClick={() => setIsReplacingFile(true)}
+                    >
+                      Replace
+                    </Button>
+                  </div>
+                </div>
+                {fileError && (
+                  <p className="text-xs text-red-600 dark:text-red-400 mt-2 px-1">
+                    {fileError}
+                  </p>
+                )}
+              </div>
+            ) : (
+              <div className="space-y-3">
+                <label
+                  htmlFor="buildingPermit"
+                  className="group flex w-full cursor-pointer items-center justify-between gap-3 rounded-lg border border-dashed border-border px-4 py-3 text-sm font-medium text-foreground transition-all hover:border-foreground/30 hover:bg-muted"
+                >
+                  <div className="flex items-center gap-3">
+                    <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-muted text-muted-foreground transition-colors group-hover:bg-muted/80">
+                      <Upload className="h-4 w-4" />
+                    </span>
+                    <div className="flex flex-col gap-1 text-left">
+                      <span className="leading-none">Choose File</span>
+                      <span className="text-xs text-muted-foreground">
+                        PDF only · Max 10 MB
+                      </span>
+                    </div>
+                  </div>
+                  <span className="rounded-full bg-muted px-3 py-1 text-xs font-semibold uppercase tracking-wide text-muted-foreground transition group-hover:bg-muted/80">
+                    Browse
+                  </span>
+                </label>
+                <Input
+                  id="buildingPermit"
+                  type="file"
+                  accept=".pdf"
+                  className="sr-only"
+                  onChange={(event) =>
+                    registerFile(
+                      "building-permit",
+                      event.target.files?.[0] ?? null
+                    )
+                  }
+                />
+                {files["building-permit"] ? (
+                  <div className="flex items-center justify-between gap-3 rounded-lg border border-border bg-muted px-3 py-2 text-xs text-foreground">
+                    <div className="flex items-center gap-2 truncate">
+                      <FileText className="h-3.5 w-3.5 flex-shrink-0" />
+                      <span
+                        className="truncate"
+                        title={files["building-permit"]?.name}
+                      >
+                        {files["building-permit"]?.name}
+                      </span>
+                    </div>
+                    <button
+                      type="button"
+                      className="rounded-full bg-card px-2 py-1 text-[11px] font-semibold uppercase tracking-wide text-muted-foreground hover:text-foreground border border-border"
+                      onClick={() =>
+                        registerFile("building-permit", null)
+                      }
+                    >
+                      Remove
+                    </button>
+                  </div>
+                ) : (
+                  <div className="flex items-center justify-between gap-2 text-xs text-muted-foreground">
+                    <p>Accepted format: PDF.</p>
+                    {documentPaths["building-permit"] && (
+                      <Button
+                        type="button"
+                        variant="ghost"
+                        size="sm"
+                        className="h-auto p-0 text-xs text-muted-foreground hover:text-foreground"
+                        onClick={() => {
+                          setIsReplacingFile(false);
+                          registerFile("building-permit", null);
+                        }}
+                      >
+                        Cancel replacement
+                      </Button>
                     )}
                   </div>
-                </CardContent>
-              </Card>
-
-              <Card className="border border-border bg-card shadow-sm">
-                <CardHeader className="pb-2 px-6">
-                  <CardTitle className="text-base font-semibold text-card-foreground">
-                    Project Attributes
-                  </CardTitle>
-                  <CardDescription className="text-xs uppercase tracking-wide text-muted-foreground">
-                    Status, priority, category
-                  </CardDescription>
-                </CardHeader>
-                <CardContent className="px-6 pb-6 space-y-5">
-                  <div className="space-y-2">
-                    <Label htmlFor="status">Current Status</Label>
-                    <Select
-                      value={status}
-                      onValueChange={(value) =>
-                        setStatus(value as ProjectStatus)
-                      }
-                    >
-                      <SelectTrigger
-                        id="status"
-                      >
-                        <SelectValue placeholder="Select status" />
-                      </SelectTrigger>
-                      <SelectContent className="z-[60] max-h-60">
-                        {statusOptions.map((option) => (
-                          <SelectItem key={option.value} value={option.value}>
-                            {option.label}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="priority">Priority</Label>
-                    <Select
-                      value={priority}
-                      onValueChange={(value) =>
-                        setPriority(value as ProjectPriority)
-                      }
-                    >
-                      <SelectTrigger
-                        id="priority"
-                      >
-                        <SelectValue placeholder="Select priority" />
-                      </SelectTrigger>
-                      <SelectContent className="z-[60] max-h-60">
-                        {priorityOptions.map((option) => (
-                          <SelectItem key={option.value} value={option.value}>
-                            {option.label}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="category">Category</Label>
-                    <Select
-                      value={category || undefined}
-                      onValueChange={(value) => setCategory(value)}
-                    >
-                      <SelectTrigger
-                        id="category"
-                      >
-                        <SelectValue placeholder="Select category" />
-                      </SelectTrigger>
-                      <SelectContent className="z-[60] max-h-60">
-                        {categoryOptions.map((option) => (
-                          <SelectItem key={option.value} value={option.value}>
-                            {option.label}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
+                )}
+              </div>
+            )}
           </div>
+        </div>
 
-          <div className="flex flex-col gap-3 border-t border-border pt-6 text-sm text-muted-foreground lg:flex-row lg:items-center lg:justify-between">
-            <p>You can revisit this step anytime—details stay saved.</p>
-            <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
-              <Button
-                type="button"
-                variant="outline"
-                disabled={isSubmitting}
-                onClick={handleSave}
-                className="w-full sm:w-auto"
-              >
-                Save progress
-              </Button>
-              <Button
-                type="submit"
-                disabled={isSubmitting}
-                className="w-full sm:w-auto"
-              >
-                {isSubmitting ? "Saving..." : "Continue"}
-              </Button>
+        {/* Performance Insights */}
+        {insightsContent ? (
+          <div className="space-y-5">
+            <div className="border-b border-border pb-2">
+              <h3 className="text-sm font-semibold text-foreground">Performance Insights</h3>
+              <p className="text-xs text-muted-foreground mt-0.5">AI-driven ESG analysis</p>
             </div>
+            {insightsContent}
           </div>
-        </form>
-      </div>
+        ) : null}
+
+        {/* Actions */}
+        <div className="flex flex-col gap-3 border-t border-border pt-6 text-sm text-muted-foreground lg:flex-row lg:items-center lg:justify-between">
+          <p>You can revisit this step anytime -- details stay saved.</p>
+          <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
+            <Button
+              type="button"
+              variant="outline"
+              disabled={isSubmitting}
+              onClick={handleSave}
+              className="w-full sm:w-auto"
+            >
+              Save progress
+            </Button>
+            <Button
+              type="submit"
+              disabled={isSubmitting}
+              className="w-full sm:w-auto"
+            >
+              {isSubmitting ? "Saving..." : "Continue"}
+            </Button>
+          </div>
+        </div>
+      </form>
     </section>
   );
 }
