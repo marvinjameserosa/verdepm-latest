@@ -784,13 +784,11 @@ export default function ConstructionPhase({ project }: ConstructionPhaseProps) {
         onValueChange={(value) => setActiveTab(value as ConstructionTab)}
         className="space-y-6"
       >
-        <TabsList className="bg-muted rounded-lg p-1 h-auto flex-wrap">
-          <TabsTrigger value="daily" className="data-[state=active]:bg-card data-[state=active]:shadow-sm rounded-md text-sm">Daily Logs</TabsTrigger>
-          <TabsTrigger value="monthly" className="data-[state=active]:bg-card data-[state=active]:shadow-sm rounded-md text-sm">Monthly Logs</TabsTrigger>
-          <TabsTrigger value="logistics" className="data-[state=active]:bg-card data-[state=active]:shadow-sm rounded-md text-sm">
-            Material Delivery
-          </TabsTrigger>
-          <TabsTrigger value="logs" className="data-[state=active]:bg-card data-[state=active]:shadow-sm rounded-md text-sm">Log History</TabsTrigger>
+        <TabsList className="w-full justify-start">
+          <TabsTrigger value="daily">Daily Logs</TabsTrigger>
+          <TabsTrigger value="monthly">Monthly Logs</TabsTrigger>
+          <TabsTrigger value="logistics">Material Delivery</TabsTrigger>
+          <TabsTrigger value="logs">Log History</TabsTrigger>
         </TabsList>
 
         <TabsContent value="daily">
