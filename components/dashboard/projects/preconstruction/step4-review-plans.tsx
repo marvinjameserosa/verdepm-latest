@@ -4,13 +4,6 @@ import { useState } from "react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import {
   Table,
   TableBody,
   TableCell,
@@ -18,7 +11,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { ClipboardList, CheckCircle2, AlertCircle } from "lucide-react";
+import { CheckCircle2, AlertCircle } from "lucide-react";
 import { type Material } from "./types";
 import { type ProjectTargets } from "@/types/preconstruction";
 import {
@@ -68,7 +61,7 @@ export default function Step4ReviewPlans({
     return numberFormatter.format(numericValue);
   };
 
-  const ReviewCard = ({
+  const ReviewItem = ({
     title,
     children,
     status = "complete",
@@ -77,141 +70,113 @@ export default function Step4ReviewPlans({
     children: React.ReactNode;
     status?: "complete" | "empty";
   }) => (
-    <Card className="border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-950/40 shadow-sm h-full">
-      <CardHeader className="pb-3">
-        <div className="flex items-center justify-between">
-          <CardTitle className="text-base font-semibold text-gray-900 dark:text-gray-100">
-            {title}
-          </CardTitle>
-          {status === "complete" ? (
-            <CheckCircle2 className="h-4 w-4 text-emerald-500" />
-          ) : (
-            <AlertCircle className="h-4 w-4 text-amber-500" />
-          )}
-        </div>
-      </CardHeader>
-      <CardContent className="text-sm">{children}</CardContent>
-    </Card>
+    <div className="space-y-2">
+      <div className="flex items-center justify-between">
+        <span className="text-sm font-medium text-foreground">{title}</span>
+        {status === "complete" ? (
+          <CheckCircle2 className="h-4 w-4 text-foreground" />
+        ) : (
+          <AlertCircle className="h-4 w-4 text-muted-foreground" />
+        )}
+      </div>
+      <div className="text-sm border border-border rounded-md p-3 bg-muted/30">{children}</div>
+    </div>
   );
 
   return (
-    <section className="w-full pb-12">
-      <div className="mx-auto flex w-full max-w-6xl flex-col gap-8 px-4 sm:px-6">
-        <header className="space-y-2">
-          <div className="flex items-center gap-2 text-emerald-700 dark:text-emerald-300">
-            <div className="p-1.5 rounded-lg bg-emerald-100 dark:bg-emerald-900/40">
-              <ClipboardList className="h-5 w-5 text-emerald-600 dark:text-emerald-400" />
-            </div>
-            <h2 className="text-lg font-semibold sm:text-xl">
-              Step 4: Review Plans
-            </h2>
+    <section className="w-full">
+      <div className="space-y-8">
+        {/* ESG Targets Review */}
+        <div className="space-y-5">
+          <div className="border-b border-border pb-2">
+            <h3 className="text-sm font-semibold text-foreground">ESG Targets Summary</h3>
+            <p className="text-xs text-muted-foreground mt-0.5">Review targets before submission</p>
           </div>
-          <p className="text-sm text-muted-foreground">
-            Review your ESG targets and sourcing record before submitting for
-            approvals.
-          </p>
-        </header>
-
-        <div className="space-y-4">
-          <h3 className="font-semibold text-lg">Project ESG Targets</h3>
-          <div className="grid gap-6 md:grid-cols-2">
-            <ReviewCard
-              title="Scope 1 Emissions"
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            <ReviewItem
+              title="Scope 1"
               status={targets?.scopeOne ? "complete" : "empty"}
             >
               {targets?.scopeOne ? (
-                <div className="space-y-2">
-                  <div className="flex justify-between py-2 border-b border-gray-100 dark:border-gray-800">
-                    <span className="text-muted-foreground text-sm">Target</span>
-                    <span className="font-semibold text-lg">
-                      {targets.scopeOne} <span className="text-sm font-normal text-muted-foreground">tCO2e</span>
-                    </span>
-                  </div>
-                  <p className="text-xs text-muted-foreground pt-1">
-                    Direct emissions from logistics and equipment usage
+                <div>
+                  <span className="font-semibold text-lg text-foreground">
+                    {targets.scopeOne}
+                  </span>
+                  <span className="text-xs text-muted-foreground ml-1">tCO2e</span>
+                  <p className="text-xs text-muted-foreground mt-1">
+                    Direct emissions from logistics & equipment
                   </p>
                 </div>
               ) : (
-                <p className="text-muted-foreground italic">
-                  No target set
-                </p>
+                <p className="text-muted-foreground italic text-xs">No target set</p>
               )}
-            </ReviewCard>
+            </ReviewItem>
 
-            <ReviewCard
-              title="Scope 2 Emissions"
+            <ReviewItem
+              title="Scope 2"
               status={targets?.scopeTwo ? "complete" : "empty"}
             >
               {targets?.scopeTwo ? (
-                <div className="space-y-2">
-                  <div className="flex justify-between py-2 border-b border-gray-100 dark:border-gray-800">
-                    <span className="text-muted-foreground text-sm">Target</span>
-                    <span className="font-semibold text-lg">
-                      {targets.scopeTwo} <span className="text-sm font-normal text-muted-foreground">tCO2e</span>
-                    </span>
-                  </div>
-                  <p className="text-xs text-muted-foreground pt-1">
-                    Indirect emissions from electricity usage
+                <div>
+                  <span className="font-semibold text-lg text-foreground">
+                    {targets.scopeTwo}
+                  </span>
+                  <span className="text-xs text-muted-foreground ml-1">tCO2e</span>
+                  <p className="text-xs text-muted-foreground mt-1">
+                    Indirect emissions from electricity
                   </p>
                 </div>
               ) : (
-                <p className="text-muted-foreground italic">
-                  No target set
-                </p>
+                <p className="text-muted-foreground italic text-xs">No target set</p>
               )}
-            </ReviewCard>
+            </ReviewItem>
 
-            <ReviewCard
-              title="Scope 3 Emissions"
+            <ReviewItem
+              title="Scope 3"
               status={targets?.scopeThree ? "complete" : "empty"}
             >
               {targets?.scopeThree ? (
-                <div className="space-y-2">
-                  <div className="flex justify-between py-2 border-b border-gray-100 dark:border-gray-800">
-                    <span className="text-muted-foreground text-sm">Target</span>
-                    <span className="font-semibold text-lg">
-                      {targets.scopeThree} <span className="text-sm font-normal text-muted-foreground">tCO2e</span>
-                    </span>
-                  </div>
-                  <p className="text-xs text-muted-foreground pt-1">
-                    Other indirect emissions from waste and water consumption
+                <div>
+                  <span className="font-semibold text-lg text-foreground">
+                    {targets.scopeThree}
+                  </span>
+                  <span className="text-xs text-muted-foreground ml-1">tCO2e</span>
+                  <p className="text-xs text-muted-foreground mt-1">
+                    Waste and water indirect emissions
                   </p>
                 </div>
               ) : (
-                <p className="text-muted-foreground italic">
-                  No target set
-                </p>
+                <p className="text-muted-foreground italic text-xs">No target set</p>
               )}
-            </ReviewCard>
+            </ReviewItem>
 
-            <ReviewCard
-              title="Total Recordable Incident Rate (TRIR)"
+            <ReviewItem
+              title="TRIR"
               status={targets?.trir ? "complete" : "empty"}
             >
               {targets?.trir ? (
-                <div className="space-y-2">
-                  <div className="flex justify-between py-2 border-b border-gray-100 dark:border-gray-800">
-                    <span className="text-muted-foreground text-sm">Target</span>
-                    <span className="font-semibold text-lg">
-                      {targets.trir}
-                    </span>
-                  </div>
-                  <p className="text-xs text-muted-foreground pt-1">
-                    Incidents per 200,000 hours worked
+                <div>
+                  <span className="font-semibold text-lg text-foreground">
+                    {targets.trir}
+                  </span>
+                  <p className="text-xs text-muted-foreground mt-1">
+                    Incidents per 200,000 hours
                   </p>
                 </div>
               ) : (
-                <p className="text-muted-foreground italic">
-                  No target set
-                </p>
+                <p className="text-muted-foreground italic text-xs">No target set</p>
               )}
-            </ReviewCard>
+            </ReviewItem>
           </div>
         </div>
 
-        <div className="space-y-4">
-          <h3 className="font-semibold text-lg">Material Sourcing Plan</h3>
-          <Card className="border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-950/40 shadow-sm overflow-hidden">
+        {/* Material Sourcing Plan */}
+        <div className="space-y-5">
+          <div className="border-b border-border pb-2">
+            <h3 className="text-sm font-semibold text-foreground">Material Sourcing Plan</h3>
+            <p className="text-xs text-muted-foreground mt-0.5">All sourced materials and supplier details</p>
+          </div>
+          <div className="border border-border rounded-md overflow-hidden">
             <Table>
               <TableHeader>
                 <TableRow>
@@ -317,10 +282,11 @@ export default function Step4ReviewPlans({
                 )}
               </TableBody>
             </Table>
-          </Card>
+          </div>
         </div>
 
-        <div className="flex flex-col gap-3 border-t border-gray-100 pt-6 dark:border-gray-800 lg:flex-row lg:items-center lg:justify-between">
+        {/* Actions */}
+        <div className="flex flex-col gap-3 border-t border-border pt-6 lg:flex-row lg:items-center lg:justify-between">
           <p className="text-sm text-muted-foreground">
             Need feedback? Share this summary before you submit.
           </p>
@@ -407,8 +373,8 @@ export default function Step4ReviewPlans({
       <Dialog open={isSuccessOpen} onOpenChange={setIsSuccessOpen}>
         <DialogContent className="sm:max-w-[380px]">
           <DialogHeader>
-            <DialogTitle className="text-emerald-600">
-              Pre-construction plan submitted!
+            <DialogTitle>
+              Pre-construction plan submitted
             </DialogTitle>
           </DialogHeader>
           <p className="text-sm text-muted-foreground">

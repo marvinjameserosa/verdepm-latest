@@ -2,16 +2,9 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { GanttChartSquare, Info } from "lucide-react";
+import { Info } from "lucide-react";
 import {
   Tooltip,
   TooltipContent,
@@ -157,7 +150,7 @@ export default function Step2TargetSetting({
     });
   };
 
-  const TargetCard = ({
+  const TargetField = ({
     title,
     description,
     explanation,
@@ -180,53 +173,43 @@ export default function Step2TargetSetting({
     onFieldFocus?: () => void;
     onFieldBlur?: () => void;
   }) => (
-    <Card className="border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-950/40 shadow-sm">
-      <CardHeader className="pb-3">
-        <div className="flex items-start justify-between gap-2">
-          <div className="space-y-1 flex-1">
-            <CardTitle className="text-base font-semibold text-gray-900 dark:text-gray-100">
-              {title}
-            </CardTitle>
-            <CardDescription className="text-xs md:text-sm text-muted-foreground">
-              {description}
-            </CardDescription>
-          </div>
-          <TooltipProvider>
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <div className="rounded-full p-1 hover:bg-gray-100 dark:hover:bg-gray-800 cursor-help">
-                  <Info className="h-4 w-4 text-muted-foreground" />
-                </div>
-              </TooltipTrigger>
-              <TooltipContent className="max-w-xs">
-                <p className="text-sm">{explanation}</p>
-              </TooltipContent>
-            </Tooltip>
-          </TooltipProvider>
+    <div className="space-y-2">
+      <div className="flex items-start justify-between gap-2">
+        <div>
+          <Label className="text-sm font-medium text-foreground">{title}</Label>
+          <p className="text-xs text-muted-foreground mt-0.5">{description}</p>
         </div>
-      </CardHeader>
-      <CardContent>
-        <div className="space-y-2">
-          <Label>Target Value ({unit})</Label>
-          <Input
-            type="text"
-            inputMode="decimal"
-            autoComplete="off"
-            placeholder={placeholder}
-            value={value}
-            onChange={(e) => onChange(e.target.value)}
-            onFocus={(event) => {
-              event.target.select();
-              onFieldFocus?.();
-            }}
-            onBlur={() => {
-              onFieldBlur?.();
-            }}
-            ref={inputRef}
-          />
-        </div>
-      </CardContent>
-    </Card>
+        <TooltipProvider>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <div className="rounded-full p-1 hover:bg-muted cursor-help">
+                <Info className="h-3.5 w-3.5 text-muted-foreground" />
+              </div>
+            </TooltipTrigger>
+            <TooltipContent className="max-w-xs">
+              <p className="text-sm">{explanation}</p>
+            </TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
+      </div>
+      <Input
+        type="text"
+        inputMode="decimal"
+        autoComplete="off"
+        placeholder={placeholder}
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        onFocus={(event) => {
+          event.target.select();
+          onFieldFocus?.();
+        }}
+        onBlur={() => {
+          onFieldBlur?.();
+        }}
+        ref={inputRef}
+      />
+      <p className="text-[11px] text-muted-foreground">Unit: {unit}</p>
+    </div>
   );
 
   const hasAnyTarget =
@@ -236,104 +219,98 @@ export default function Step2TargetSetting({
     formState.trir.trim();
 
   return (
-    <section className="w-full pb-12">
-      <div className="mx-auto flex w-full max-w-6xl flex-col gap-8 px-4 sm:px-6">
-        <header className="space-y-2">
-          <div className="flex items-center gap-2 text-emerald-700 dark:text-emerald-300">
-            <div className="rounded-lg bg-emerald-100 p-1.5 dark:bg-emerald-900/40">
-              <GanttChartSquare className="h-5 w-5 text-emerald-600 dark:text-emerald-400" />
-            </div>
-            <h2 className="text-lg font-semibold sm:text-xl">
-              Step 2: Target Setting
-            </h2>
+    <section className="w-full">
+      <div className="space-y-8">
+        {/* Emissions Targets */}
+        <div className="space-y-5">
+          <div className="border-b border-border pb-2">
+            <h3 className="text-sm font-semibold text-foreground">CO2 Emission Targets</h3>
+            <p className="text-xs text-muted-foreground mt-0.5">
+              Set targets for the project lifecycle. All values in tCO2e.
+            </p>
           </div>
-          <p className="text-sm text-muted-foreground">
-            Set your ESG targets for CO2 emissions and safety metrics. All values represent targets to achieve during the project lifecycle.
-          </p>
-        </header>
+          <div className="grid gap-6 sm:grid-cols-3">
+            <TargetField
+              title="Scope 1"
+              description="Direct emissions from logistics and equipment"
+              explanation="Scope 1 includes direct greenhouse gas emissions from sources owned or controlled by the organization, such as fuel combustion from construction vehicles and equipment."
+              unit="tCO2e"
+              placeholder="e.g., 150"
+              value={formState.scopeOne}
+              onChange={(val) =>
+                setFormState((prev) => ({ ...prev, scopeOne: val }))
+              }
+              inputRef={(node) => {
+                inputRefs.current.scopeOne = node;
+              }}
+              onFieldFocus={() => setActiveField("scopeOne")}
+              onFieldBlur={() => setActiveField(null)}
+            />
 
-        <div className="grid gap-6 lg:grid-cols-2">
-          <TargetCard
-            title="Scope 1 Emissions"
-            description="Direct emissions from logistics and equipment"
-            explanation="Scope 1 includes direct greenhouse gas emissions from sources owned or controlled by the organization, such as fuel combustion from construction vehicles and equipment."
-            unit="tCO2e"
-            placeholder="e.g., 150"
-            value={formState.scopeOne}
-            onChange={(val) =>
-              setFormState((prev) => ({ ...prev, scopeOne: val }))
-            }
-            inputRef={(node) => {
-              inputRefs.current.scopeOne = node;
-            }}
-            onFieldFocus={() => setActiveField("scopeOne")}
-            onFieldBlur={() => setActiveField(null)}
-          />
+            <TargetField
+              title="Scope 2"
+              description="Indirect emissions from electricity usage"
+              explanation="Scope 2 covers indirect greenhouse gas emissions from the consumption of purchased electricity, heat, or steam used in construction activities."
+              unit="tCO2e"
+              placeholder="e.g., 75"
+              value={formState.scopeTwo}
+              onChange={(val) =>
+                setFormState((prev) => ({ ...prev, scopeTwo: val }))
+              }
+              inputRef={(node) => {
+                inputRefs.current.scopeTwo = node;
+              }}
+              onFieldFocus={() => setActiveField("scopeTwo")}
+              onFieldBlur={() => setActiveField(null)}
+            />
 
-          <TargetCard
-            title="Scope 2 Emissions"
-            description="Indirect emissions from electricity usage"
-            explanation="Scope 2 covers indirect greenhouse gas emissions from the consumption of purchased electricity, heat, or steam used in construction activities."
-            unit="tCO2e"
-            placeholder="e.g., 75"
-            value={formState.scopeTwo}
-            onChange={(val) =>
-              setFormState((prev) => ({ ...prev, scopeTwo: val }))
-            }
-            inputRef={(node) => {
-              inputRefs.current.scopeTwo = node;
-            }}
-            onFieldFocus={() => setActiveField("scopeTwo")}
-            onFieldBlur={() => setActiveField(null)}
-          />
-
-          <TargetCard
-            title="Scope 3 Emissions"
-            description="Other indirect emissions from waste and water"
-            explanation="Scope 3 encompasses all other indirect emissions in the value chain, including waste disposal and water consumption related to construction operations."
-            unit="tCO2e"
-            placeholder="e.g., 50"
-            value={formState.scopeThree}
-            onChange={(val) =>
-              setFormState((prev) => ({ ...prev, scopeThree: val }))
-            }
-            inputRef={(node) => {
-              inputRefs.current.scopeThree = node;
-            }}
-            onFieldFocus={() => setActiveField("scopeThree")}
-            onFieldBlur={() => setActiveField(null)}
-          />
-
-          <TargetCard
-            title="Total Recordable Incident Rate (TRIR)"
-            description="Safety performance target"
-            explanation="TRIR measures the number of recordable workplace injuries and illnesses per 200,000 hours worked. A lower TRIR indicates better safety performance on the construction site."
-            unit="incidents per 200,000 hours"
-            placeholder="e.g., 2.5"
-            value={formState.trir}
-            onChange={(val) =>
-              setFormState((prev) => ({ ...prev, trir: val }))
-            }
-            inputRef={(node) => {
-              inputRefs.current.trir = node;
-            }}
-            onFieldFocus={() => setActiveField("trir")}
-            onFieldBlur={() => setActiveField(null)}
-          />
+            <TargetField
+              title="Scope 3"
+              description="Waste and water indirect emissions"
+              explanation="Scope 3 encompasses all other indirect emissions in the value chain, including waste disposal and water consumption related to construction operations."
+              unit="tCO2e"
+              placeholder="e.g., 50"
+              value={formState.scopeThree}
+              onChange={(val) =>
+                setFormState((prev) => ({ ...prev, scopeThree: val }))
+              }
+              inputRef={(node) => {
+                inputRefs.current.scopeThree = node;
+              }}
+              onFieldFocus={() => setActiveField("scopeThree")}
+              onFieldBlur={() => setActiveField(null)}
+            />
+          </div>
         </div>
 
-        <div className="flex items-center justify-end border-t border-gray-100 pt-6 dark:border-gray-800">
-          <Button
-            type="button"
-            onClick={handleSave}
-            disabled={!projectId || isSaving}
-            className="w-full sm:w-auto"
-          >
-            {isSaving ? "Saving..." : "Save Targets"}
-          </Button>
+        {/* Safety Target */}
+        <div className="space-y-5">
+          <div className="border-b border-border pb-2">
+            <h3 className="text-sm font-semibold text-foreground">Safety Target</h3>
+            <p className="text-xs text-muted-foreground mt-0.5">Workplace incident tracking metric</p>
+          </div>
+          <div className="max-w-sm">
+            <TargetField
+              title="TRIR"
+              description="Total Recordable Incident Rate"
+              explanation="TRIR measures the number of recordable workplace injuries and illnesses per 200,000 hours worked. A lower TRIR indicates better safety performance on the construction site."
+              unit="incidents per 200,000 hours"
+              placeholder="e.g., 2.5"
+              value={formState.trir}
+              onChange={(val) =>
+                setFormState((prev) => ({ ...prev, trir: val }))
+              }
+              inputRef={(node) => {
+                inputRefs.current.trir = node;
+              }}
+              onFieldFocus={() => setActiveField("trir")}
+              onFieldBlur={() => setActiveField(null)}
+            />
+          </div>
         </div>
 
-        <div className="flex flex-col gap-3 border-t border-gray-100 pt-6 dark:border-gray-800 lg:flex-row lg:items-center lg:justify-between">
+        {/* Actions */}
+        <div className="flex flex-col gap-3 border-t border-border pt-6 lg:flex-row lg:items-center lg:justify-between">
           <p className="text-sm text-muted-foreground">
             {hasAnyTarget
               ? "Save your targets before moving forward."
@@ -342,6 +319,13 @@ export default function Step2TargetSetting({
           <div className="flex gap-2">
             <Button variant="outline" onClick={onBack}>
               Previous
+            </Button>
+            <Button
+              type="button"
+              onClick={handleSave}
+              disabled={!projectId || isSaving}
+            >
+              {isSaving ? "Saving..." : "Save Targets"}
             </Button>
             <Button onClick={onNext}>Next</Button>
           </div>

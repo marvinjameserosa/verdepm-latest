@@ -3,19 +3,11 @@
 import React, { useMemo, useState } from "react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import {
   ChevronsUpDown,
-  Layers,
   Loader2,
   PlusCircle,
   Search,
@@ -258,40 +250,21 @@ export default function Step3MaterialSourcing({
   };
 
   return (
-    <section className="w-full pb-12">
-      <div className="mx-auto flex w-full flex-col gap-8 px-4 sm:px-6">
-        <header className="space-y-2">
-          <div className="flex items-center gap-2 text-emerald-700 dark:text-emerald-300">
-            <div className="rounded-lg bg-emerald-100 p-1.5 dark:bg-emerald-900/40">
-              <Layers className="h-5 w-5 text-emerald-600 dark:text-emerald-400" />
-            </div>
-            <h2 className="text-lg font-semibold sm:text-xl">
-              Step 3: Material Sourcing & Due Diligence
-            </h2>
-          </div>
-          <p className="text-sm text-muted-foreground">
-            Capture the sourcing pipeline for critical project materials and
-            suppliers.
-          </p>
-        </header>
-
-        <Card className="border border-gray-200 bg-white shadow-sm dark:border-gray-800 dark:bg-gray-950/40">
-          <CardHeader className="space-y-2">
-            <div className="flex items-center gap-2">
-              <Layers className="h-5 w-5 text-emerald-600 dark:text-emerald-400" />
-              <CardTitle className="text-base font-semibold text-gray-900 dark:text-gray-100">
-                {editingId
-                  ? "Edit Material"
-                  : "Material Sourcing & Due Diligence"}
-              </CardTitle>
-            </div>
-            <CardDescription>
+    <section className="w-full">
+      <div className="space-y-8">
+        {/* Material Form */}
+        <div className="space-y-5">
+          <div className="border-b border-border pb-2">
+            <h3 className="text-sm font-semibold text-foreground">
+              {editingId ? "Edit Material" : "Add Material"}
+            </h3>
+            <p className="text-xs text-muted-foreground mt-0.5">
               {editingId
                 ? "Update the details for this sourced material."
                 : "Capture the sourcing pipeline for critical project materials and suppliers."}
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-4">
+            </p>
+          </div>
+          <div className="space-y-4">
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
               <div className="space-y-2">
                 <Label>Material Category</Label>
@@ -474,20 +447,20 @@ export default function Step3MaterialSourcing({
               </Label>
               <label
                 htmlFor="spec-sheet-upload"
-                className="group flex w-full cursor-pointer items-center justify-between gap-3 rounded-xl border border-dashed border-emerald-300/60 bg-emerald-50/60 px-4 py-3 text-sm font-medium text-emerald-700 transition-all hover:border-emerald-400 hover:bg-emerald-50 dark:border-emerald-900/50 dark:bg-emerald-950/30 dark:text-emerald-100 dark:hover:border-emerald-700/70 dark:hover:bg-emerald-900/40"
+                className="group flex w-full cursor-pointer items-center justify-between gap-3 rounded-lg border border-dashed border-border px-4 py-3 text-sm font-medium text-foreground transition-all hover:border-foreground/30 hover:bg-muted"
               >
                 <div className="flex items-center gap-3">
-                  <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-emerald-500/10 text-emerald-600 transition-colors group-hover:bg-emerald-500/20">
+                  <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-muted text-muted-foreground transition-colors group-hover:bg-muted/80">
                     <Upload className="h-4 w-4" />
                   </span>
                   <div className="flex flex-col gap-1 text-left">
                     <span className="leading-none">Choose PDF</span>
-                    <span className="text-xs text-muted-foreground dark:text-emerald-100/70">
+                    <span className="text-xs text-muted-foreground">
                       Max 10 MB · .pdf only
                     </span>
                   </div>
                 </div>
-                <span className="rounded-full bg-emerald-500/10 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-emerald-600 transition group-hover:bg-emerald-500/20">
+                <span className="rounded-full bg-muted px-3 py-1 text-xs font-semibold uppercase tracking-wide text-muted-foreground transition group-hover:bg-muted/80">
                   Browse
                 </span>
               </label>
@@ -502,7 +475,7 @@ export default function Step3MaterialSourcing({
                 }}
               />
               {specSheet ? (
-                <div className="flex items-center justify-between gap-3 rounded-lg border border-emerald-100 bg-emerald-50/60 px-3 py-2 text-xs text-emerald-700 dark:border-emerald-900/40 dark:bg-emerald-950/30 dark:text-emerald-100">
+                <div className="flex items-center justify-between gap-3 rounded-lg border border-border bg-muted px-3 py-2 text-xs text-foreground">
                   <div className="flex items-center gap-2 truncate">
                     <FileText className="h-3.5 w-3.5 flex-shrink-0" />
                     <span className="truncate" title={specSheet.name}>
@@ -511,7 +484,7 @@ export default function Step3MaterialSourcing({
                   </div>
                   <button
                     type="button"
-                    className="rounded-full bg-emerald-500/10 px-2 py-1 text-[11px] font-semibold uppercase tracking-wide text-emerald-600 hover:bg-emerald-500/20 dark:bg-emerald-900/40 dark:text-emerald-200 dark:hover:bg-emerald-900/60"
+                    className="rounded-full bg-card px-2 py-1 text-[11px] font-semibold uppercase tracking-wide text-muted-foreground hover:text-foreground border border-border"
                     onClick={() => setSpecSheet(null)}
                   >
                     Remove
@@ -568,8 +541,8 @@ export default function Step3MaterialSourcing({
                 )}
               </Button>
             </div>
-            <div className="space-y-3 border-t border-dashed border-gray-200 pt-6 dark:border-gray-800">
-              <h5 className="text-sm font-medium text-muted-foreground">
+            <div className="space-y-3 border-t border-border pt-6">
+              <h5 className="text-sm font-semibold text-foreground">
                 Materials Added
               </h5>
               {materials.length === 0 ? (
@@ -700,10 +673,11 @@ export default function Step3MaterialSourcing({
                 </div>
               )}
             </div>
-          </CardContent>
-        </Card>
+          </div>
+        </div>
 
-        <div className="flex flex-col gap-3 border-t border-gray-100 pt-6 dark:border-gray-800 lg:flex-row lg:items-center lg:justify-between">
+        {/* Actions */}
+        <div className="flex flex-col gap-3 border-t border-border pt-6 lg:flex-row lg:items-center lg:justify-between">
           <p className="text-sm text-muted-foreground">
             Save at least one material before moving forward.
           </p>

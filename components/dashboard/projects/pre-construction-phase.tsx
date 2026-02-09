@@ -702,53 +702,16 @@ export function PreConstructionPhase({
           {successMessage}
         </div>
       )}
-      <div className="border border-border rounded-lg bg-card p-4 space-y-1">
-        <p className="text-sm font-semibold text-card-foreground">
-          {activeStep
-            ? `Currently on: ${activeStep.title}`
-            : "Pre-construction workflow"}
-        </p>
-        <p className="text-sm text-muted-foreground">
-          Complete each step in order. Your progress saves automatically after
-          each section.
-        </p>
-      </div>
-
-      <div className="lg:grid lg:grid-cols-[280px_1fr] lg:items-start lg:gap-6 space-y-6 lg:space-y-0">
+      <div className="lg:grid lg:grid-cols-[260px_1fr] lg:items-start lg:gap-8 space-y-6 lg:space-y-0">
         <div className="space-y-4 lg:sticky lg:top-24">
           <StepIndicator
             currentStep={step}
             steps={PRECONSTRUCTION_WORKFLOW_STEPS}
           />
-          <div className="rounded-lg border border-border bg-muted p-4 text-sm space-y-2">
-            <p className="font-semibold text-foreground">
-              Quick tip
-            </p>
-            {step === 1 && (
-              <p className="text-muted-foreground">
-                Tie each ESG target to a measurable KPI.
-              </p>
-            )}
-            {step === 2 && (
-              <p className="text-muted-foreground">
-                Match sourcing notes that support your targets.
-              </p>
-            )}
-            {step === 3 && (
-              <p className="text-muted-foreground">
-                Scan for missing costs or vetting notes before submitting for
-                approval.
-              </p>
-            )}
-          </div>
-          <div className="rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 p-4 text-xs text-muted-foreground space-y-2">
-            <p className="font-semibold text-sm text-gray-900 dark:text-gray-100">
-              Need to pause?
-            </p>
-            <p>
-              Your progress is saved locally after each step. You can return
-              later from the project overview.
-            </p>
+          <div className="text-xs text-muted-foreground">
+            {step === 1 && "Tip: Tie each ESG target to a measurable KPI."}
+            {step === 2 && "Tip: Match sourcing notes that support your targets."}
+            {step === 3 && "Tip: Scan for missing costs or vetting notes before submitting."}
           </div>
         </div>
         <div className="space-y-6">
