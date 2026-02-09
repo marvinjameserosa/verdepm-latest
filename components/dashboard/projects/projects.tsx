@@ -83,59 +83,47 @@ export default function ProjectsTab() {
 
   return (
     <div className="space-y-6 p-6">
-      {/* Header Section */}
-      <div className="backdrop-blur-xl bg-white/70 dark:bg-gray-900/70 rounded-2xl border border-white/20 shadow-2xl p-6">
-        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-          <div>
-            <h1 className="text-2xl font-bold bg-gradient-to-r from-emerald-600 to-emerald-500 bg-clip-text text-transparent">
-              Projects
-            </h1>
-            <p className="text-muted-foreground mt-1">
-              Manage and track your construction projects
-            </p>
-          </div>
-          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full sm:w-auto">
-            <div className="relative">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-              <Input
-                type="search"
-                placeholder="Search projects..."
-                className="w-full sm:w-[280px] lg:w-[320px] pl-9 rounded-xl"
-                value={searchTerm}
-                onChange={handleSearchChange}
-              />
-            </div>
-            <div className="flex items-center gap-2">
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    className="h-10 gap-2 rounded-xl"
-                  >
-                    <ListFilter className="h-4 w-4" />
-                    <span className="hidden sm:inline">Filter</span>
-                  </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent align="end">
-                  <DropdownMenuLabel>Filter by Status</DropdownMenuLabel>
-                  <DropdownMenuSeparator />
-                  {STATUS_FILTER_ORDER.map((status) => (
-                    <DropdownMenuCheckboxItem
-                      key={status}
-                      checked={selectedStatuses.includes(status)}
-                      onCheckedChange={(checked) =>
-                        handleStatusFilterChange(status, checked)
-                      }
-                    >
-                      {projectStatusLabels[status]}
-                    </DropdownMenuCheckboxItem>
-                  ))}
-                </DropdownMenuContent>
-              </DropdownMenu>
-              <AddProjectModal onProjectCreated={addProject} />
-            </div>
-          </div>
+      {/* Filter Bar */}
+      <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+        <div className="relative flex-1">
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+          <Input
+            type="search"
+            placeholder="Search projects..."
+            className="w-full pl-9 h-10 border-border bg-card"
+            value={searchTerm}
+            onChange={handleSearchChange}
+          />
+        </div>
+        <div className="flex items-center gap-2">
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button
+                variant="outline"
+                size="sm"
+                className="h-10 gap-2 border-border bg-card"
+              >
+                <ListFilter className="h-4 w-4" />
+                <span className="hidden sm:inline">Status</span>
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end">
+              <DropdownMenuLabel>Filter by Status</DropdownMenuLabel>
+              <DropdownMenuSeparator />
+              {STATUS_FILTER_ORDER.map((status) => (
+                <DropdownMenuCheckboxItem
+                  key={status}
+                  checked={selectedStatuses.includes(status)}
+                  onCheckedChange={(checked) =>
+                    handleStatusFilterChange(status, checked)
+                  }
+                >
+                  {projectStatusLabels[status]}
+                </DropdownMenuCheckboxItem>
+              ))}
+            </DropdownMenuContent>
+          </DropdownMenu>
+          <AddProjectModal onProjectCreated={addProject} />
         </div>
       </div>
 
