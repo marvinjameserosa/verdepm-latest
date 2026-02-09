@@ -103,9 +103,6 @@ export function ProjectCard({ project, onRefresh }: ProjectCardProps) {
               className="object-cover transition-transform duration-300 group-hover:scale-105"
               sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
             />
-            {/* Overlay gradient for readability */}
-            <div className="absolute inset-0 bg-gradient-to-t from-card/80 via-transparent to-transparent" />
-
             {/* Status badge on photo */}
             <div className="absolute top-3 left-3">
               <Badge
