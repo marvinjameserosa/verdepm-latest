@@ -119,8 +119,8 @@ export function ProjectCard({ project, onRefresh }: ProjectCardProps) {
               </Badge>
             </div>
 
-            {/* Arrow icon on hover */}
-            <div className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity">
+            {/* Arrow icon */}
+            <div className="absolute bottom-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity">
               <div className="h-7 w-7 rounded-full bg-card/90 backdrop-blur-sm flex items-center justify-center">
                 <ArrowUpRight className="h-3.5 w-3.5 text-card-foreground" />
               </div>

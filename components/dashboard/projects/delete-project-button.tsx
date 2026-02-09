@@ -61,7 +61,7 @@ export function DeleteProjectButton({
         <Button
           variant="ghost"
           size="icon"
-          className="absolute top-4 right-4 z-20 h-8 w-8 text-muted-foreground hover:text-destructive opacity-0 group-hover:opacity-100 transition-opacity"
+          className="absolute top-3 right-3 z-20 h-7 w-7 rounded-full bg-card/90 backdrop-blur-sm text-muted-foreground hover:text-destructive hover:bg-card/95 opacity-0 group-hover:opacity-100 transition-opacity"
           onClick={(e) => {
             e.preventDefault();
             e.stopPropagation();
